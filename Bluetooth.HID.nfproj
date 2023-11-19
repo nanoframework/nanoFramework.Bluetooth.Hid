@@ -12,25 +12,15 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <FileAlignment>512</FileAlignment>
-    <RootNamespace>Bluetooth</RootNamespace>
-    <AssemblyName>Bluetooth</AssemblyName>
+    <RootNamespace>nanoFramework.Bluetooth.HID</RootNamespace>
+    <AssemblyName>nanoFramework.Bluetooth.HID</AssemblyName>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="Enums\HidKeyboardKey.cs" />
-    <Compile Include="Enums\HidMouse.cs" />
-    <Compile Include="Enums\HidType.cs" />
-    <Compile Include="Hid.cs" />
-    <Compile Include="PnpElements.cs" />
+    <Compile Include="Device.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReportMap.cs" />
-    <Compile Include="Services\BatteryService.cs" />
-    <Compile Include="Characteristics\FeatureReportCharacteristic.cs" />
-    <Compile Include="Services\DeviceInformationService.cs" />
-    <Compile Include="Services\HidService.cs" />
-    <Compile Include="Characteristics\InputReportCharacteristic.cs" />
-    <Compile Include="Characteristics\OutputReportCharacteristic.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib">
@@ -54,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
   <ProjectExtensions>
