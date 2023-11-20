@@ -6,7 +6,7 @@ using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Services
 {
-    internal class GenericAccessService : IBluetoothService
+    internal sealed class GenericAccessService : BluetoothService
     {
         public string DeviceName { get; }
 
@@ -23,27 +23,40 @@ namespace nanoFramework.Bluetooth.HID.Services
             this.Appearance = appearance;
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
-            var gattServiceProviderResult = GattServiceProvider.Create(GattServiceUuids.GenericAccess);
-            if (gattServiceProviderResult.Error != BluetoothError.Success)
-            {
-                throw new Exception(gattServiceProviderResult.Error.ToString());
-            }
+            var gattService = CreateGattService(GattServiceUuids.GenericAccess);
 
-            var gattService = gattServiceProviderResult.ServiceProvider.Service;
+            CreateGapDeviceNameCharacteristic(gattService);
+            CreateGapAppearanceCharacteristic(gattService);
+        }
 
+        private void CreateGapDeviceNameCharacteristic(GattLocalService gattService)
+        {
             var deviceNameCharacteristicResult = gattService.CreateCharacteristic(GattCharacteristicUuids.GapDeviceName, new()
             {
                 CharacteristicProperties = GattCharacteristicProperties.Read,
-                StaticValue = DeviceName.AsBuffer()
+                StaticValue = DeviceName.ToBuffer()
             });
+
             if (deviceNameCharacteristicResult.Error != BluetoothError.Success)
             {
                 throw new Exception(deviceNameCharacteristicResult.Error.ToString());
             }
+        }
 
+        private void CreateGapAppearanceCharacteristic(GattLocalService gattService)
+        {
+            var appearanceCharacteristicResult = gattService.CreateCharacteristic(GattCharacteristicUuids.GapAppearance, new()
+            {
+                CharacteristicProperties = GattCharacteristicProperties.Read,
+                StaticValue = ((ushort)Appearance).ToBuffer()
+            });
 
+            if (appearanceCharacteristicResult.Error != BluetoothError.Success)
+            {
+                throw new Exception(appearanceCharacteristicResult.Error.ToString());
+            }
         }
     }
 }
