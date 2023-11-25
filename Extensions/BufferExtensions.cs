@@ -31,5 +31,11 @@ namespace nanoFramework.Bluetooth.HID.Extensions
             dw.WriteUInt16(val);
             return dw.DetachBuffer();
         }
+
+        internal static byte AsByte(this Buffer buffer)
+        {
+            var dataReader = DataReader.FromBuffer(buffer);
+            return dataReader.ReadByte();
+        }
     }
 }

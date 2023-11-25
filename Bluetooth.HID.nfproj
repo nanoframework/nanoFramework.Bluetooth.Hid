@@ -22,9 +22,13 @@
     <Compile Include="Device.cs" />
     <Compile Include="DeviceInformation.cs" />
     <Compile Include="Extensions\BufferExtensions.cs" />
+    <Compile Include="HidHostStateArgs.cs" />
+    <Compile Include="HidHostStateChangedEventHandler.cs" />
     <Compile Include="HidType.cs" />
+    <Compile Include="Keyboard.cs" />
     <Compile Include="PnpElements.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtocolMode.cs" />
     <Compile Include="Services\BatteryService.cs" />
     <Compile Include="Services\BluetoothService.cs" />
     <Compile Include="Services\DeviceInfoService.cs" />

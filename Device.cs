@@ -2,6 +2,6 @@
 {
     public abstract class Device
     {
-
+        protected abstract byte[] GetReportMap();
     }
 }
