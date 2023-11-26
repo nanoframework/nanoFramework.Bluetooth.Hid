@@ -5,7 +5,7 @@ using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Services
 {
-    internal sealed class ScanParamsService : BluetoothService
+    public sealed class ScanParamsService : BluetoothService
     {
         private GattLocalCharacteristic scanRefreshCharacteristic;
 

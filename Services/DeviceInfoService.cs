@@ -1,12 +1,12 @@
 ﻿using System;
 
-using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
-using nanoFramework.Device.Bluetooth;
 using nanoFramework.Bluetooth.HID.Extensions;
+using nanoFramework.Device.Bluetooth;
+using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Services
 {
-    internal sealed class DeviceInfoService : BluetoothService
+    public sealed class DeviceInfoService : BluetoothService
     {
         public DeviceInformation DeviceInformation { get; }
 
@@ -35,7 +35,7 @@ namespace nanoFramework.Bluetooth.HID.Services
             CreatePnpIdCharacteristic(gattService, PnpElements);
         }
 
-        private static void CreateReadStaticCharacteristic(GattLocalService gattService, Guid Uuid, String data)
+        private static void CreateReadStaticCharacteristic(GattLocalService gattService, Guid Uuid, string data)
         {
             if (data == null)
             {

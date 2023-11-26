@@ -1,10 +1,11 @@
-﻿using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
+﻿using System;
+
 using nanoFramework.Device.Bluetooth;
-using System;
+using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Services
 {
-    internal abstract class BluetoothService
+    public abstract class BluetoothService
     {
         public abstract void Initialize();
 

@@ -2,7 +2,7 @@
 
 namespace nanoFramework.Bluetooth.HID
 {
-    internal sealed class HidHostStateArgs : EventArgs
+    public sealed class HidHostStateArgs : EventArgs
     {
         public bool IsHostSuspended { get; }
 

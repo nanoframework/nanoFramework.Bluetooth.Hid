@@ -6,7 +6,7 @@ using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Services
 {
-    internal sealed class GenericAccessService : BluetoothService
+    public sealed class GenericAccessService : BluetoothService
     {
         public string DeviceName { get; }
 
@@ -19,8 +19,8 @@ namespace nanoFramework.Bluetooth.HID.Services
                 throw new ArgumentNullException();
             }
 
-            this.DeviceName = deviceName;
-            this.Appearance = appearance;
+            DeviceName = deviceName;
+            Appearance = appearance;
         }
 
         public override void Initialize()

@@ -8,7 +8,7 @@ using UnitsNet;
 
 namespace nanoFramework.Bluetooth.HID.Services
 {
-    internal sealed class BatteryService : BluetoothService
+    public sealed class BatteryService : BluetoothService
     {
         private GattLocalCharacteristic batteryLevelCharacteristic;
 

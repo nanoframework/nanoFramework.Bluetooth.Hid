@@ -19,7 +19,7 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="Device.cs" />
+    <Compile Include="HidDevice.cs" />
     <Compile Include="DeviceInformation.cs" />
     <Compile Include="Extensions\BufferExtensions.cs" />
     <Compile Include="HidHostStateArgs.cs" />
