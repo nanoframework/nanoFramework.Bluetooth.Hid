@@ -25,11 +25,21 @@ namespace nanoFramework.Bluetooth.HID
         public virtual void Advertise()
         {
             StartBleServer();
+            AdvertiseHidService();
+        }
 
-            var result = GattServiceProvider.Create(GattServiceUuids.HumanInterfaceDevice);
-            if (result.Error != BluetoothError.Success)
+        public virtual void StopAdvertising()
+        {
+            StopAdvertisingHidService();
+            StopBleServer();
+        }
+
+        private void AdvertiseHidService()
+        {
+            hidDeviceServiceProvider = BluetoothLEServer.Instance.GetServiceByUUID(GattServiceUuids.HumanInterfaceDevice);
+            if (hidDeviceServiceProvider == null)
             {
-                throw new Exception(result.Error.ToString());
+                throw new InvalidOperationException();
             }
 
             var adParams = new GattServiceProviderAdvertisingParameters
@@ -39,12 +49,10 @@ namespace nanoFramework.Bluetooth.HID
             };
 
             adParams.Advertisement.LocalName = _deviceName;
-            result.ServiceProvider.StartAdvertising(adParams);
-
-            hidDeviceServiceProvider = result.ServiceProvider;
+            hidDeviceServiceProvider.StartAdvertising(adParams);
         }
 
-        public virtual void StopAdvertising()
+        private void StopAdvertisingHidService()
         {
             if (hidDeviceServiceProvider == null)
             {
@@ -52,13 +60,11 @@ namespace nanoFramework.Bluetooth.HID
             }
 
             hidDeviceServiceProvider.StopAdvertising();
-
-            StopBleServer();
         }
 
         private void StartBleServer()
         {
-            _server.DeviceName = "RAPH KEYBOARD";
+            _server.DeviceName = _deviceName;
             _server.Appearance = (ushort)HidType.Keyboard;
 
             _server.Pairing.AllowBonding = true;

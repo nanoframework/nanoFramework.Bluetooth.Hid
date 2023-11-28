@@ -1,5 +1,6 @@
 ﻿using System;
 
+using nanoFramework.Bluetooth.HID.Extensions;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
@@ -28,7 +29,7 @@ namespace nanoFramework.Bluetooth.HID.Services
                 throw new InvalidOperationException();
             }
 
-            scanRefreshCharacteristic.NotifyValue(new Buffer(new byte[1] { 0x00 }));
+            scanRefreshCharacteristic.NotifyValue((new byte[1] { 0x00 }).ToBuffer());
         }
 
         private void CreateScanIntervalWindowCharacteristic(GattLocalService gattService)
@@ -49,11 +50,18 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         private void OnScanIntervalWindowCharacteristicWriteRequested(GattLocalCharacteristic sender, GattWriteRequestedEventArgs writeRequestEventArgs)
         {
-            var value = writeRequestEventArgs.GetRequest().Value;
-            var dr = DataReader.FromBuffer(value);
+            try
+            {
+                var value = writeRequestEventArgs.GetRequest().Value;
+                var dr = DataReader.FromBuffer(value);
 
-            this.ScanInterval = dr.ReadUInt16();
-            this.ScanWindow = dr.ReadUInt16();
+                this.ScanInterval = dr.ReadUInt16();
+                this.ScanWindow = dr.ReadUInt16();
+            }
+            catch
+            {
+                //do nothing
+            }
         }
 
         private void CreateScanRefreshCharacteristic(GattLocalService gattService)

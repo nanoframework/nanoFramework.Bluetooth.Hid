@@ -23,12 +23,13 @@ namespace nanoFramework.Bluetooth.HID.Services
         {
             HidGattService = CreateGattService(GattServiceUuids.HumanInterfaceDevice);
 
-            CreateHidInformationCharacteristic();
             CreateProtocolModeCharacteristic();
-            CreateHidControlPointCharacteristic();
 
-            CreateReportMapCharacteristic();
             CreateReportCharacteristics();
+            CreateReportMapCharacteristic();
+
+            CreateHidInformationCharacteristic();
+            CreateHidControlPointCharacteristic();
         }
 
         protected virtual void CreateHidInformationCharacteristic()
@@ -62,7 +63,7 @@ namespace nanoFramework.Bluetooth.HID.Services
             var result = HidGattService.CreateCharacteristic(GattCharacteristicUuids.ProtocolMode, new()
             {
                 CharacteristicProperties = GattCharacteristicProperties.Read,
-                StaticValue = new Buffer(new byte[1] { (byte)_protocolMode })
+                StaticValue = (new byte[1] { (byte)_protocolMode }).ToBuffer()
             });
 
             if (result.Error != BluetoothError.Success)
