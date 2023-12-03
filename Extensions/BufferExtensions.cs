@@ -4,18 +4,14 @@ namespace nanoFramework.Bluetooth.HID.Extensions
 {
     internal static class BufferExtensions
     {
-        internal static Buffer ToBuffer(this byte byteValue)
+        internal static Buffer AsBuffer(this byte byteValue)
         {
-            var dw = new DataWriter();
-            dw.WriteByte(byteValue);
-            return dw.DetachBuffer();
+            return (new[] { byteValue }).AsBuffer();
         }
 
-        internal static Buffer ToBuffer(this byte[] byteArray)
+        internal static Buffer AsBuffer(this byte[] byteArray)
         {
-            var dw = new DataWriter();
-            dw.WriteBytes(byteArray);
-            return dw.DetachBuffer();
+            return new (byteArray);
         }
 
         internal static Buffer ToBuffer(this string str)

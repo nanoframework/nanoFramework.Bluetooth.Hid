@@ -29,7 +29,7 @@ namespace nanoFramework.Bluetooth.HID.Services
                 throw new InvalidOperationException();
             }
 
-            scanRefreshCharacteristic.NotifyValue((new byte[1] { 0x00 }).ToBuffer());
+            scanRefreshCharacteristic.NotifyValue((new byte[1] { 0x00 }).AsBuffer());
         }
 
         private void CreateScanIntervalWindowCharacteristic(GattLocalService gattService)

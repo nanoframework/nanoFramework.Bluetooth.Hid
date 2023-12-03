@@ -38,7 +38,7 @@ namespace nanoFramework.Bluetooth.HID
         public Buffer ToBuffer()
         {
             return this.Serialize()
-                .ToBuffer();
+                .AsBuffer();
         }
     }
 }

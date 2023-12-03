@@ -23,7 +23,7 @@ namespace nanoFramework.Bluetooth.HID.Services
                 if (batteryLevel.Value != value.Value)
                 {
                     var byteVal = (byte)value.Percent;
-                    batteryLevelCharacteristic.NotifyValue(byteVal.ToBuffer());
+                    batteryLevelCharacteristic.NotifyValue(byteVal.AsBuffer());
 
                     batteryLevel = value;
                     disableSerivce = false;
@@ -75,7 +75,7 @@ namespace nanoFramework.Bluetooth.HID.Services
             }
             else
             {
-                request.RespondWithValue(((byte)batteryLevel.Percent).ToBuffer());
+                request.RespondWithValue(((byte)batteryLevel.Percent).AsBuffer());
             }
         }
     }

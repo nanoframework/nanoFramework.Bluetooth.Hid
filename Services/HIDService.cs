@@ -45,7 +45,7 @@ namespace nanoFramework.Bluetooth.HID.Services
             var result = HidGattService.CreateCharacteristic(GattCharacteristicUuids.HidInformation, new()
             {
                 CharacteristicProperties = GattCharacteristicProperties.Read,
-                StaticValue = hidInfo.ToBuffer()
+                StaticValue = hidInfo.AsBuffer()
             });
 
             if (result.Error != BluetoothError.Success)
@@ -63,7 +63,7 @@ namespace nanoFramework.Bluetooth.HID.Services
             var result = HidGattService.CreateCharacteristic(GattCharacteristicUuids.ProtocolMode, new()
             {
                 CharacteristicProperties = GattCharacteristicProperties.Read,
-                StaticValue = (new byte[1] { (byte)_protocolMode }).ToBuffer()
+                StaticValue = (new byte[1] { (byte)_protocolMode }).AsBuffer()
             });
 
             if (result.Error != BluetoothError.Success)

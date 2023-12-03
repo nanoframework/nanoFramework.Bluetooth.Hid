@@ -1,6 +1,7 @@
 using System.Threading;
 
 using nanoFramework.Bluetooth.HID;
+using nanoFramework.Bluetooth.HID.Devices;
 
 namespace BLEKeyboardSample
 {
@@ -23,7 +24,7 @@ namespace BLEKeyboardSample
             while (true)
             {
                 Thread.Sleep(1000);
-                kbd.LockPC();
+                kbd.Type();
             }
 
             //Thread.Sleep(Timeout.Infinite);

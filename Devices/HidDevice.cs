@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-
 using nanoFramework.Bluetooth.HID.Services;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
-namespace nanoFramework.Bluetooth.HID
+namespace nanoFramework.Bluetooth.HID.Devices
 {
     public abstract class HidDevice : HIDService, IDisposable
     {
@@ -16,6 +15,8 @@ namespace nanoFramework.Bluetooth.HID
 
         public event EventHandler Connected;
         public event EventHandler Disconnected;
+
+        public bool IsConnected { get; private set; }
 
         protected HidDevice(string deviceName, ProtocolMode protocolMode) : base(protocolMode)
         {
@@ -77,24 +78,34 @@ namespace nanoFramework.Bluetooth.HID
             _server.Start();
         }
 
-		private void StopBleServer()
+        private void StopBleServer()
         {
             _server.Stop();
         }
 
-		protected virtual void OnGattSessionChanged(object sender, GattSessionStatusChangedEventArgs args)
-		{
-			if (args.Status == GattSessionStatus.Active)
+        protected virtual void OnGattSessionChanged(object sender, GattSessionStatusChangedEventArgs args)
+        {
+            if (args.Status == GattSessionStatus.Active)
             {
+                IsConnected = true;
                 Connected?.Invoke(this, EventArgs.Empty);
             }
             else
             {
+                IsConnected = false;
                 Disconnected?.Invoke(this, EventArgs.Empty);
             }
-		}
+        }
 
-		public void Dispose()
+        protected void ThrowIfNotConnected()
+        {
+            if (!IsConnected)
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        public void Dispose()
         {
             StopAdvertising();
             _server.Dispose();
