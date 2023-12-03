@@ -14,7 +14,8 @@ namespace nanoFramework.Bluetooth.HID
 
         private GattServiceProvider hidDeviceServiceProvider;
 
-        public event EventHandler DeviceConnected;
+        public event EventHandler Connected;
+        public event EventHandler Disconnected;
 
         protected HidDevice(string deviceName, ProtocolMode protocolMode) : base(protocolMode)
         {
@@ -70,32 +71,30 @@ namespace nanoFramework.Bluetooth.HID
             _server.Pairing.AllowBonding = true;
             _server.Pairing.ProtectionLevel = DevicePairingProtectionLevel.Encryption;
             _server.Pairing.IOCapabilities = DevicePairingIOCapabilities.NoInputNoOutput;
-            _server.Pairing.PairingRequested += OnPairingRequested;
-            _server.Pairing.PairingComplete += OnPairingCompleted;
+
+            _server.Session.SessionStatusChanged += OnGattSessionChanged;
 
             _server.Start();
         }
 
-        private void StopBleServer()
+		private void StopBleServer()
         {
             _server.Stop();
         }
 
-        public virtual void OnPairingRequested(object sender, DevicePairingRequestedEventArgs args)
-        {
-            Debug.WriteLine($"Pairing Requested: {args.PairingKind.ToString()} - PIN: {args.Pin.ToString()}");
-            args.Accept();
-            Debug.WriteLine($"Pairing Accepted.");
-        }
+		protected virtual void OnGattSessionChanged(object sender, GattSessionStatusChangedEventArgs args)
+		{
+			if (args.Status == GattSessionStatus.Active)
+            {
+                Connected?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                Disconnected?.Invoke(this, EventArgs.Empty);
+            }
+		}
 
-        public virtual void OnPairingCompleted(object sender, DevicePairingEventArgs args)
-        {
-            Debug.WriteLine($"Pairing Completed: {args.Status.ToString()}");
-
-            DeviceConnected?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void Dispose()
+		public void Dispose()
         {
             StopAdvertising();
             _server.Dispose();
