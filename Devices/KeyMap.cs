@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections;
 
 namespace nanoFramework.Bluetooth.HID.Devices
 {
-	public static class Keys
+	public static class KeyMap
 	{
-		private static readonly Hashtable KeyMap = new()
+		private static readonly Hashtable map = new()
 		{
 			{ 'A', A },
 			{ 'B', B },
@@ -48,6 +45,17 @@ namespace nanoFramework.Bluetooth.HID.Devices
 			{ '0', Keyboard0 },
 
 			{ ' ', Space },
+			{ '-', Minus },
+			{ '=', Equal },
+			{ '[', OpenSquareBracket },
+			{ ']', CloseSquareBracket },
+			{ '\\', Backslash },
+			{ ';', Semicolon },
+			{ '\'', Quote },
+			{ ',', Comma },
+			{ '`', GraveAccent },
+			{ '.', Dot },
+			{ '/', Forwardslash }
 		};
 
 		public const byte A = 0x04;
@@ -99,7 +107,90 @@ namespace nanoFramework.Bluetooth.HID.Devices
 		public const byte OpenSquareBracket = 0x2F;
 		public const byte CloseSquareBracket = 0x30;
 		public const byte Backslash = 0x31;
-		public const byte Tilde 
+		public const byte Pound = 0x32;
+		public const byte Semicolon = 0x33;
+		public const byte Quote = 0x34;
+		public const byte GraveAccent = 0x35;
+		public const byte Comma = 0x36;
+		public const byte Dot = 0x37;
+		public const byte Forwardslash = 0x38;
+		public const byte CapsLock = 0x39;
+
+		public const byte F1 = 0x3A;
+		public const byte F2 = 0x3B;
+		public const byte F3 = 0x3C;
+		public const byte F4 = 0x3D;
+		public const byte F5 = 0x3E;
+		public const byte F6 = 0x3F;
+		public const byte F7 = 0x40;
+		public const byte F8 = 0x41;
+		public const byte F9 = 0x42;
+		public const byte F10 = 0x43;
+		public const byte F12 = 0x44;
+		public const byte F13 = 0x45;
+
+		public const byte PrintScr = 0x46;
+		public const byte ScrlLock = 0x47;
+		public const byte Pause = 0x48;
+		public const byte Insert = 0x49;
+		public const byte Home = 0x4A;
+		public const byte PageUp = 0x4B;
+		public const byte DeleteFwd = 0x4C;
+		public const byte End = 0x4D;
+		public const byte PageDown = 0x4E;
+		public const byte RightArrow = 0x4F;
+		public const byte LeftArrow = 0x50;
+		public const byte DownArrow = 0x51;
+		public const byte UpArrow = 0x52;
+
+		public const byte KeypadNumLck = 0x53;
+		public const byte KeypadForwardslash = 0x54;
+		public const byte KeypadAsterisk = 0x55;
+		public const byte KeypadMinus = 0x56;
+		public const byte KeypadPlus = 0x57;
+		public const byte KeypadEnter = 0x58;
+
+		public const byte Keypad1 = 0x59;
+		public const byte Keypad2 = 0x5A;
+		public const byte Keypad3 = 0x5B;
+		public const byte Keypad4 = 0x5C;
+		public const byte Keypad5 = 0x5D;
+		public const byte Keypad6 = 0x5E;
+		public const byte Keypad7 = 0x5F;
+		public const byte Keypad8 = 0x60;
+		public const byte Keypad9 = 0x61;
+		public const byte Keypad0 = 0x62;
+
+		public const byte KeypadDot = 0x63;
+
+		public const byte LeftCtrl = 0xE0;
+		public const byte LeftShift = 0xE1;
+		public const byte LeftAlt = 0xE2;
+		public const byte LeftGUI = 0xE3;
+		public const byte RightCtrl = 0xE4;
+		public const byte RightShift = 0xE5;
+		public const byte RightAlt = 0xE6;
+		public const byte RightGUI = 0xE7;
+
+		public static bool IsModifierKey(byte key)
+		{
+			return key >= LeftCtrl
+				&& key <= RightGUI;
+		}
+
+		public static bool IsLetter(byte key)
+		{
+			return key >= A
+				&& key <= Z;
+		}
+
+		public static bool IsDigit(byte key)
+		{
+			return (key >= Keyboard1
+				&& key <= Keyboard0) 
+				|| (key >= Keypad1
+				&& key <= Keypad0);
+		}
 
 		public static byte[] GetKeys(string input)
 		{
@@ -108,7 +199,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
 			for (var charIndex = 0; charIndex < input.Length; charIndex++)
 			{
 				var character = input[charIndex];
-				if (KeyMap[character.ToUpper()] is byte value)
+				if (map[character.ToUpper()] is byte value)
 				{
 					keysArr[charIndex] = (byte)value;
 				}
