@@ -23,6 +23,8 @@
     <Compile Include="DeviceInformation.cs" />
     <Compile Include="Devices\KeyMap.cs" />
     <Compile Include="Devices\KeyReport.cs" />
+    <Compile Include="Devices\LedStatusChangedEventArgs.cs" />
+    <Compile Include="Devices\LedStatusChangedEventHandler.cs" />
     <Compile Include="Extensions\BufferExtensions.cs" />
     <Compile Include="HidHostStateArgs.cs" />
     <Compile Include="HidHostStateChangedEventHandler.cs" />
