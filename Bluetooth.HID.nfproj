@@ -21,7 +21,8 @@
   <ItemGroup>
     <Compile Include="Devices\HidDevice.cs" />
     <Compile Include="DeviceInformation.cs" />
-    <Compile Include="Devices\KeyMap.cs" />
+    <Compile Include="Devices\KeyboardUtilities.cs" />
+    <Compile Include="Devices\Keys.cs" />
     <Compile Include="Devices\KeyReport.cs" />
     <Compile Include="Devices\LedStatusChangedEventArgs.cs" />
     <Compile Include="Devices\LedStatusChangedEventHandler.cs" />

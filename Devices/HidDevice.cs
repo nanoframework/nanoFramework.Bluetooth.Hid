@@ -97,14 +97,6 @@ namespace nanoFramework.Bluetooth.HID.Devices
             }
         }
 
-        protected void ThrowIfNotConnected()
-        {
-            if (!IsConnected)
-            {
-                throw new InvalidOperationException();
-            }
-        }
-
         public void Dispose()
         {
             StopAdvertising();

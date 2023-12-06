@@ -26,16 +26,12 @@ namespace BLEKeyboardSample
 			{
 				if (!kbd.IsConnected)
 				{
-					Thread.Sleep(2500);
+					Thread.Sleep(100);
 					continue;
 				}
 
-				Thread.Sleep(1000);
-
-				//kbd.Press(KeyMap.LeftGUI);
-				//kbd.Press(KeyMap.L);
-
-				//kbd.ReleaseAll();
+				Thread.Sleep(5000);
+				KeyboardUtilities.TypeText(kbd, "Hello, World.");
 			}
 		}
 

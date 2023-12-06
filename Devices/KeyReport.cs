@@ -17,9 +17,9 @@ namespace nanoFramework.Bluetooth.HID.Devices
 
 		public void AddKey(byte key)
 		{
-			if (KeyMap.IsModifierKey(key))
+			if (Devices.Keys.IsModifierKey(key))
 			{
-				var modifierKeyMask = 0x80 >> (7 - (key - KeyMap.LeftCtrl));
+				var modifierKeyMask = 0x80 >> (7 - (key - Devices.Keys.Modifiers.LeftCtrl));
 				Modifiers |= (byte)modifierKeyMask;
 
 				return;
