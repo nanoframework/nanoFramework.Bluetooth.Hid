@@ -31,7 +31,7 @@ namespace BLEKeyboardSample
 				}
 
 				Thread.Sleep(5000);
-				KeyboardUtilities.TypeText(kbd, "Hello, World.");
+				KeyboardUtilities.TypeText(kbd, "Hello, World. I want to play a game.");
 			}
 		}
 

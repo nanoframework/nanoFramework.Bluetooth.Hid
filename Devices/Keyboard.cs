@@ -18,7 +18,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
         private GattLocalCharacteristic _inputReport;
         private GattLocalCharacteristic _outputReport;
         private TimeSpan _keyPressDelay;
-        private KeyReport _report;
+        private KeyboardInputReport _report;
 
         private const byte MaxPressedKeyCount = 0x06;
 
@@ -38,7 +38,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
             _scanParamsService = new();
             _batteryService = new();
 
-            _report = new KeyReport(maxNumPressedKey: 6);
+            _report = new KeyboardInputReport(maxNumPressedKey: 6);
             _keyPressDelay = TimeSpan.FromMilliseconds(150);
 
             LedStatus = new();
@@ -129,22 +129,28 @@ namespace nanoFramework.Bluetooth.HID.Devices
                 0xC0,                       // End Collection
             };
 
-            var reportMapCharacteristicResult = HidGattService.CreateCharacteristic(GattCharacteristicUuids.ReportMap, new()
-            {
-                CharacteristicProperties = GattCharacteristicProperties.Read,
-                ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
-                StaticValue = reportMap.AsBuffer(),
-            });
+            var reportMapCharacteristicResult = HidGattService.CreateCharacteristic(
+                GattCharacteristicUuids.ReportMap,
+                new()
+                {
+                    CharacteristicProperties = GattCharacteristicProperties.Read,
+                    ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
+                    StaticValue = reportMap.AsBuffer(),
+                });
 
             if (reportMapCharacteristicResult.Error != BluetoothError.Success)
             {
                 throw new Exception(reportMapCharacteristicResult.Error.ToString());
             }
 
-            var externalReportReferenceDescriptorResult = reportMapCharacteristicResult.Characteristic.CreateDescriptor(Utilities.CreateUuidFromShortCode(10503), new()
-            {
-                StaticValue = (new byte[] { 0x00, 0x00 }).AsBuffer()
-            });
+            var externalReportReferenceDescriptorResult = reportMapCharacteristicResult
+                .Characteristic
+                .CreateDescriptor(
+                    Utilities.CreateUuidFromShortCode(10503),
+                    new()
+                    {
+                        StaticValue = (new byte[] { 0x00, 0x00 }).AsBuffer()
+                    });
 
             if (externalReportReferenceDescriptorResult.Error != BluetoothError.Success)
             {

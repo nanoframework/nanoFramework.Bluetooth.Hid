@@ -2,7 +2,7 @@
 
 namespace nanoFramework.Bluetooth.HID.Devices
 {
-	public class KeyReport
+	public class KeyboardInputReport
 	{
 		public byte Modifiers { get; set; }
 
@@ -10,7 +10,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
 
 		public byte[] Keys { get; }
 
-		public KeyReport(byte maxNumPressedKey)
+		public KeyboardInputReport(byte maxNumPressedKey)
 		{
 			Keys = new byte[maxNumPressedKey];
 		}
