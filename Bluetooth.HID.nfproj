@@ -27,7 +27,8 @@
     <Compile Include="Devices\LedStatusChangedEventArgs.cs" />
     <Compile Include="Devices\LedStatusChangedEventHandler.cs" />
     <Compile Include="Devices\Mouse.cs" />
-    <Compile Include="Devices\MouseAction.cs" />
+    <Compile Include="Devices\MouseButton.cs" />
+    <Compile Include="Devices\MouseInputReport.cs" />
     <Compile Include="Extensions\BufferExtensions.cs" />
     <Compile Include="HidHostStateArgs.cs" />
     <Compile Include="HidHostStateChangedEventHandler.cs" />

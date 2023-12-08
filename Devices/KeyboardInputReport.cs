@@ -4,9 +4,9 @@ namespace nanoFramework.Bluetooth.HID.Devices
 {
 	public class KeyboardInputReport
 	{
-		public byte Modifiers { get; set; }
+		public byte Modifiers { get; private set; }
 
-		public byte ReservedByte { get; set; }
+		public byte ReservedByte { get; private set; }
 
 		public byte[] Keys { get; }
 

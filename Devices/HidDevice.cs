@@ -1,106 +1,130 @@
 ﻿using System;
 using System.Diagnostics;
+
 using nanoFramework.Bluetooth.HID.Services;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Devices
 {
-    public abstract class HidDevice : HIDService, IDisposable
-    {
-        protected readonly string _deviceName;
-        protected readonly BluetoothLEServer _server;
+	public abstract class HidDevice : HIDService, IDisposable
+	{
+		protected readonly string _deviceName;
+		protected readonly BluetoothLEServer _server;
 
-        private GattServiceProvider hidDeviceServiceProvider;
+		protected readonly GenericAccessService _genericAccessService;
+		protected readonly DeviceInfoService _deviceInfoService;
+		protected readonly ScanParamsService _scanParamsService;
+		protected readonly BatteryService _batteryService;
 
-        public event EventHandler Connected;
-        public event EventHandler Disconnected;
+		private GattServiceProvider hidDeviceServiceProvider;
 
-        public bool IsConnected { get; private set; }
+		public event EventHandler Connected;
+		public event EventHandler Disconnected;
 
-        protected HidDevice(string deviceName, ProtocolMode protocolMode) : base(protocolMode)
-        {
-            _deviceName = deviceName;
-            _server = BluetoothLEServer.Instance;
-        }
+		public bool IsConnected { get; private set; }
 
-        public virtual void Advertise()
-        {
-            StartBleServer();
-            AdvertiseHidService();
-        }
+		protected HidDevice(string deviceName,
+			DeviceInformation deviceInfo,
+			ProtocolMode protocolMode,
+			PnpElements plugAndPlayElements) : base(protocolMode)
+		{
+			_deviceName = deviceName;
+			_server = BluetoothLEServer.Instance;
 
-        public virtual void StopAdvertising()
-        {
-            StopAdvertisingHidService();
-            StopBleServer();
-        }
+			_genericAccessService = new(deviceName, HidType.Keyboard);
+			_deviceInfoService = new(deviceInfo, plugAndPlayElements);
+			_scanParamsService = new();
+			_batteryService = new();
+		}
 
-        private void AdvertiseHidService()
-        {
-            hidDeviceServiceProvider = BluetoothLEServer.Instance.GetServiceByUUID(GattServiceUuids.HumanInterfaceDevice);
-            if (hidDeviceServiceProvider == null)
-            {
-                throw new InvalidOperationException();
-            }
+		public override void Initialize()
+		{
+			_genericAccessService.Initialize();
+			_deviceInfoService.Initialize();
+			_scanParamsService.Initialize();
+			_batteryService.Initialize();
 
-            var adParams = new GattServiceProviderAdvertisingParameters
-            {
-                IsConnectable = true,
-                IsDiscoverable = true,
-            };
+			base.Initialize();
+		}
 
-            adParams.Advertisement.LocalName = _deviceName;
-            hidDeviceServiceProvider.StartAdvertising(adParams);
-        }
+		public virtual void Advertise()
+		{
+			StartBleServer();
+			AdvertiseHidService();
+		}
 
-        private void StopAdvertisingHidService()
-        {
-            if (hidDeviceServiceProvider == null)
-            {
-                return;
-            }
+		public virtual void StopAdvertising()
+		{
+			StopAdvertisingHidService();
+			StopBleServer();
+		}
 
-            hidDeviceServiceProvider.StopAdvertising();
-        }
+		private void AdvertiseHidService()
+		{
+			hidDeviceServiceProvider = BluetoothLEServer.Instance.GetServiceByUUID(GattServiceUuids.HumanInterfaceDevice);
+			if (hidDeviceServiceProvider == null)
+			{
+				throw new InvalidOperationException();
+			}
 
-        private void StartBleServer()
-        {
-            _server.DeviceName = _deviceName;
-            _server.Appearance = (ushort)HidType.Keyboard;
+			var adParams = new GattServiceProviderAdvertisingParameters
+			{
+				IsConnectable = true,
+				IsDiscoverable = true,
+			};
 
-            _server.Pairing.AllowBonding = true;
-            _server.Pairing.ProtectionLevel = DevicePairingProtectionLevel.Encryption;
-            _server.Pairing.IOCapabilities = DevicePairingIOCapabilities.NoInputNoOutput;
+			adParams.Advertisement.LocalName = _deviceName;
+			hidDeviceServiceProvider.StartAdvertising(adParams);
+		}
 
-            _server.Session.SessionStatusChanged += OnGattSessionChanged;
+		private void StopAdvertisingHidService()
+		{
+			if (hidDeviceServiceProvider == null)
+			{
+				return;
+			}
 
-            _server.Start();
-        }
+			hidDeviceServiceProvider.StopAdvertising();
+		}
 
-        private void StopBleServer()
-        {
-            _server.Stop();
-        }
+		private void StartBleServer()
+		{
+			_server.DeviceName = _deviceName;
+			_server.Appearance = (ushort)HidType.Keyboard;
 
-        protected virtual void OnGattSessionChanged(object sender, GattSessionStatusChangedEventArgs args)
-        {
-            if (args.Status == GattSessionStatus.Active)
-            {
-                IsConnected = true;
-                Connected?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                IsConnected = false;
-                Disconnected?.Invoke(this, EventArgs.Empty);
-            }
-        }
+			_server.Pairing.AllowBonding = true;
+			_server.Pairing.ProtectionLevel = DevicePairingProtectionLevel.Encryption;
+			_server.Pairing.IOCapabilities = DevicePairingIOCapabilities.NoInputNoOutput;
 
-        public void Dispose()
-        {
-            StopAdvertising();
-            _server.Dispose();
-        }
-    }
+			_server.Session.SessionStatusChanged += OnGattSessionChanged;
+
+			_server.Start();
+		}
+
+		private void StopBleServer()
+		{
+			_server.Stop();
+		}
+
+		protected virtual void OnGattSessionChanged(object sender, GattSessionStatusChangedEventArgs args)
+		{
+			if (args.Status == GattSessionStatus.Active)
+			{
+				IsConnected = true;
+				Connected?.Invoke(this, EventArgs.Empty);
+			}
+			else
+			{
+				IsConnected = false;
+				Disconnected?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		public void Dispose()
+		{
+			StopAdvertising();
+			_server.Dispose();
+		}
+	}
 }

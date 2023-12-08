@@ -1,28 +1,53 @@
-﻿using nanoFramework.Bluetooth.HID.Extensions;
-using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
+﻿using System;
+
+using nanoFramework.Bluetooth.HID.Extensions;
 using nanoFramework.Device.Bluetooth;
-using System;
+using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Devices
 {
-    public class Mouse : HidDevice
-    {
-        public Mouse(
-            string deviceName,
-            ProtocolMode protocolMode
-            ) : base(deviceName, protocolMode)
-        {
-        }
+	public class Mouse : HidDevice
+	{
+		private readonly MouseInputReport _report;
 
-        protected override void CreateReportCharacteristics()
-        {
-            throw new System.NotImplementedException();
-        }
+		private GattLocalCharacteristic _inputReport;
 
-        protected override void CreateReportMapCharacteristic()
-        {
-            var reportMap = new byte[] {
-            0x05, 0x01,  // Usage Page (Generic Desktop)
+		public Mouse(
+			string deviceName,
+			DeviceInformation deviceInfo,
+			ProtocolMode protocolMode,
+			PnpElements plugAndPlayElements) : base(deviceName, deviceInfo, protocolMode, plugAndPlayElements)
+		{
+			_report = new();
+		}
+
+		public void Click(MouseButton button)
+		{
+			_report.Reset();
+
+			_report.Press(button);
+			SendInputReport();
+
+			_report.Release();
+			SendInputReport();
+		}
+
+		public void Move(sbyte x, sbyte y)
+		{
+			_report.Move(x, y);
+			SendInputReport();
+		}
+
+		public void Scroll(sbyte scollPosition)
+		{
+			_report.Scroll(scollPosition);
+			SendInputReport();
+		}
+
+		protected override void CreateReportMapCharacteristic()
+		{
+			var reportMap = new byte[] {
+			0x05, 0x01,  // Usage Page (Generic Desktop)
             0x09, 0x02,  // Usage (Mouse)
             0xA1, 0x01,  // Collection (Application)
             0x85, 0x01,  // Report Id (1)
@@ -52,33 +77,85 @@ namespace nanoFramework.Bluetooth.HID.Devices
             0xC0,        // End Collection
             };
 
-            var reportMapCharacteristicResult = HidGattService.CreateCharacteristic(
-                GattCharacteristicUuids.ReportMap,
-                new()
-                {
-                    CharacteristicProperties = GattCharacteristicProperties.Read,
-                    ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
-                    StaticValue = reportMap.AsBuffer(),
-                });
+			var reportMapCharacteristicResult = HidGattService.CreateCharacteristic(
+				GattCharacteristicUuids.ReportMap,
+				new()
+				{
+					CharacteristicProperties = GattCharacteristicProperties.Read,
+					ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
+					StaticValue = reportMap.AsBuffer(),
+				});
 
-            if (reportMapCharacteristicResult.Error != BluetoothError.Success)
-            {
-                throw new Exception(reportMapCharacteristicResult.Error.ToString());
-            }
+			if (reportMapCharacteristicResult.Error != BluetoothError.Success)
+			{
+				throw new Exception(reportMapCharacteristicResult.Error.ToString());
+			}
 
-            var externalReportReferenceDescriptorResult = reportMapCharacteristicResult
-                .Characteristic
-                .CreateDescriptor(
-                    Utilities.CreateUuidFromShortCode(10503),
-                    new()
-                    {
-                        StaticValue = (new byte[] { 0x00, 0x00 }).AsBuffer()
-                    });
+			var externalReportReferenceDescriptorResult = reportMapCharacteristicResult
+				.Characteristic
+				.CreateDescriptor(
+					Utilities.CreateUuidFromShortCode(10503),
+					new()
+					{
+						StaticValue = (new byte[] { 0x00, 0x00 }).AsBuffer()
+					});
 
-            if (externalReportReferenceDescriptorResult.Error != BluetoothError.Success)
-            {
-                throw new Exception(externalReportReferenceDescriptorResult.Error.ToString());
-            }
-        }
-    }
+			if (externalReportReferenceDescriptorResult.Error != BluetoothError.Success)
+			{
+				throw new Exception(externalReportReferenceDescriptorResult.Error.ToString());
+			}
+		}
+
+		protected override void CreateReportCharacteristics()
+		{
+			CreateInputReportCharacteristic();
+		}
+
+		private void CreateInputReportCharacteristic()
+		{
+			var inputReportCharacteristicResult = HidGattService.CreateCharacteristic(GattCharacteristicUuids.Report, new()
+			{
+				CharacteristicProperties = GattCharacteristicProperties.Read | GattCharacteristicProperties.Notify,
+				ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
+				WriteProtectionLevel = GattProtectionLevel.EncryptionRequired,
+				StaticValue = _report.ToBytes().AsBuffer()
+			});
+
+			if (inputReportCharacteristicResult.Error != BluetoothError.Success)
+			{
+				throw new Exception(inputReportCharacteristicResult.Error.ToString());
+			}
+
+			var clientConfigDescriptorResult = inputReportCharacteristicResult.Characteristic.CreateDescriptor(GattDescriptorUuids.ClientCharacteristicConfiguration, new()
+			{
+				ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
+				WriteProtectionLevel = GattProtectionLevel.EncryptionRequired,
+				StaticValue = (new byte[] { 0x00, 0x00 }).AsBuffer() // no notification | 0x0001 enable notification | 0x0002 enable indication
+			});
+
+			if (clientConfigDescriptorResult.Error != BluetoothError.Success)
+			{
+				throw new Exception(clientConfigDescriptorResult.Error.ToString());
+			}
+
+			var reportRefDescriptorResult = inputReportCharacteristicResult.Characteristic.CreateDescriptor(Utilities.CreateUuidFromShortCode(10504), new()
+			{
+				ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
+				WriteProtectionLevel = GattProtectionLevel.EncryptionRequired,
+				StaticValue = (new byte[] { 0x01, 0x01 }).AsBuffer() // report id + report type
+			});
+
+			if (reportRefDescriptorResult.Error != BluetoothError.Success)
+			{
+				throw new Exception(reportRefDescriptorResult.Error.ToString());
+			}
+
+			_inputReport = inputReportCharacteristicResult.Characteristic;
+		}
+
+		private void SendInputReport()
+		{
+			_inputReport.NotifyValue(_report.ToBytes().AsBuffer());
+		}
+	}
 }
