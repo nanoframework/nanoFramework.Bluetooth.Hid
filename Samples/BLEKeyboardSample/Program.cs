@@ -12,6 +12,12 @@ namespace BLEKeyboardSample
 
 		public static void Main()
 		{
+			//StartKeyboard();
+			StartMouse();
+		}
+
+		private static void StartKeyboard()
+		{
 			kbd = new Keyboard(deviceName: "nF BLE Keyboard",
 				deviceInfo: new DeviceInformation("nF", "BLEKBD1", "1", "01", "01", "01"),
 				protocolMode: ProtocolMode.Report,
@@ -32,6 +38,37 @@ namespace BLEKeyboardSample
 
 				Thread.Sleep(5000);
 				KeyboardUtilities.TypeText(kbd, "Hello, World. I want to play a game.");
+			}
+		}
+
+		public static void StartMouse()
+		{
+			var mouse = new Mouse("nF BLE Mouse",
+				deviceInfo: new DeviceInformation("nF", "BLEMOUSE1", "1", "01", "01", "01"),
+				protocolMode: ProtocolMode.Report,
+				plugAndPlayElements: new PnpElements(sig: 0x02, vid: 0xE502, pid: 0xA111, version: 0x210));
+
+			mouse.Initialize();
+			mouse.Advertise();
+
+			while (true)
+			{
+				if (!mouse.IsConnected)
+				{
+					Thread.Sleep(100);
+					continue;
+				}
+
+				Thread.Sleep(1000);
+
+				// move to the right and bottom (diagonal)
+				mouse.Move(x: 5, y: 5);
+
+				// scroll down
+				mouse.Scroll(-5);
+
+				// left click something
+				mouse.Click(MouseButton.Left);
 			}
 		}
 

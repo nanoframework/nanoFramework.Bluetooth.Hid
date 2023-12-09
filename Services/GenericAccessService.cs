@@ -25,7 +25,7 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         public override void Initialize()
         {
-            var gattService = CreateGattService(GattServiceUuids.GenericAccess);
+            var gattService = CreateOrGetGattService(GattServiceUuids.GenericAccess);
 
             CreateGapDeviceNameCharacteristic(gattService);
             CreateGapAppearanceCharacteristic(gattService);

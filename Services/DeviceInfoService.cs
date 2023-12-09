@@ -21,7 +21,7 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         public override void Initialize()
         {
-            var gattService = CreateGattService(GattServiceUuids.DeviceInformation);
+            var gattService = CreateOrGetGattService(GattServiceUuids.DeviceInformation);
 
             // set up device info characteristic
             CreateReadStaticCharacteristic(gattService, GattCharacteristicUuids.ManufacturerNameString, DeviceInformation.Manufacturer);

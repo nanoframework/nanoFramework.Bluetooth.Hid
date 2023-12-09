@@ -16,7 +16,7 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         public override void Initialize()
         {
-            var gattService = CreateGattService(GattServiceUuids.ScanParameters);
+            var gattService = CreateOrGetGattService(GattServiceUuids.ScanParameters);
 
             CreateScanIntervalWindowCharacteristic(gattService);
             CreateScanRefreshCharacteristic(gattService);

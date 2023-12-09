@@ -21,7 +21,7 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         public override void Initialize()
         {
-            HidGattService = CreateGattService(GattServiceUuids.HumanInterfaceDevice);
+            HidGattService = CreateOrGetGattService(GattServiceUuids.HumanInterfaceDevice);
 
             CreateProtocolModeCharacteristic();
 

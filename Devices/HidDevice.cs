@@ -22,20 +22,25 @@ namespace nanoFramework.Bluetooth.HID.Devices
 		public event EventHandler Connected;
 		public event EventHandler Disconnected;
 
+		public HidType Type { get; }
+
 		public bool IsConnected { get; private set; }
 
 		protected HidDevice(string deviceName,
 			DeviceInformation deviceInfo,
+			HidType hidType,
 			ProtocolMode protocolMode,
 			PnpElements plugAndPlayElements) : base(protocolMode)
 		{
 			_deviceName = deviceName;
 			_server = BluetoothLEServer.Instance;
 
-			_genericAccessService = new(deviceName, HidType.Keyboard);
+			_genericAccessService = new(deviceName, hidType);
 			_deviceInfoService = new(deviceInfo, plugAndPlayElements);
 			_scanParamsService = new();
 			_batteryService = new();
+
+			Type = hidType;
 		}
 
 		public override void Initialize()
@@ -91,7 +96,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
 		private void StartBleServer()
 		{
 			_server.DeviceName = _deviceName;
-			_server.Appearance = (ushort)HidType.Keyboard;
+			_server.Appearance = (ushort)Type;
 
 			_server.Pairing.AllowBonding = true;
 			_server.Pairing.ProtectionLevel = DevicePairingProtectionLevel.Encryption;

@@ -38,7 +38,7 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         public override void Initialize()
         {
-            var gattService = CreateGattService(GattServiceUuids.Battery);
+            var gattService = CreateOrGetGattService(GattServiceUuids.Battery);
             CreateBatteryLevelCharacteristic(gattService);
         }
 

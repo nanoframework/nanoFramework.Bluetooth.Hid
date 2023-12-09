@@ -27,7 +27,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
 			DeviceInformation deviceInfo,
 			ProtocolMode protocolMode,
 			PnpElements plugAndPlayElements
-			) : base(deviceName, deviceInfo, protocolMode, plugAndPlayElements)
+			) : base(deviceName, deviceInfo, HidType.Keyboard, protocolMode, plugAndPlayElements)
 		{
 			_report = new(maxNumPressedKey: 6);
 			_keyPressDelay = TimeSpan.FromMilliseconds(150);

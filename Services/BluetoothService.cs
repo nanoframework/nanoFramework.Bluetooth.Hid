@@ -5,20 +5,26 @@ using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Services
 {
-    public abstract class BluetoothService
-    {
-        public abstract void Initialize();
+	public abstract class BluetoothService
+	{
+		public abstract void Initialize();
 
-        protected static GattLocalService CreateGattService(Guid serviceUuid)
-        {
-            var gattServiceProviderResult = GattServiceProvider.Create(serviceUuid);
-            if (gattServiceProviderResult.Error != BluetoothError.Success)
-            {
-                throw new Exception(gattServiceProviderResult.Error.ToString());
-            }
+		protected static GattLocalService CreateOrGetGattService(Guid serviceUuid)
+		{
+			var existingService = BluetoothLEServer.Instance.GetServiceByUUID(serviceUuid);
+			if (existingService != null)
+			{
+				return existingService.Service;
+			}
 
-            var gattService = gattServiceProviderResult.ServiceProvider.Service;
-            return gattService;
-        }
-    }
+			var gattServiceProviderResult = GattServiceProvider.Create(serviceUuid);
+			if (gattServiceProviderResult.Error != BluetoothError.Success)
+			{
+				throw new Exception(gattServiceProviderResult.Error.ToString());
+			}
+
+			var gattService = gattServiceProviderResult.ServiceProvider.Service;
+			return gattService;
+		}
+	}
 }
