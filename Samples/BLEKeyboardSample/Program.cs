@@ -12,8 +12,8 @@ namespace BLEKeyboardSample
 
 		public static void Main()
 		{
-			//StartKeyboard();
-			StartMouse();
+			StartKeyboard();
+			//StartMouse();
 		}
 
 		private static void StartKeyboard()
@@ -37,6 +37,24 @@ namespace BLEKeyboardSample
 				}
 
 				Thread.Sleep(5000);
+
+				/*
+				 * On Windows, the following example will:
+				 *
+				 * - Open the 'Run' Dialog.
+				 * - Type 'Notepad'.
+				 * - Press Enter to launch notepad.exe.
+				 * - Waits for notepad to open.
+				 * - Type a warm Hello World message ;)
+				 */
+
+				kbd.Send(Keys.Modifiers.LeftGUI, Keys.Alphabet.R);
+				KeyboardUtilities.TypeText(kbd, "Notepad");
+				kbd.Send(Keys.Control.Return);
+
+				// wait a bit for notepad to launch
+				Thread.Sleep(1000);
+
 				KeyboardUtilities.TypeText(kbd, "Hello, World. I want to play a game.");
 			}
 		}
