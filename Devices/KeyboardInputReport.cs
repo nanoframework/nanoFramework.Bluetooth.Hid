@@ -1,96 +1,99 @@
-﻿using System;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+
+using System;
 
 namespace nanoFramework.Bluetooth.HID.Devices
 {
-	public class KeyboardInputReport
-	{
-		public byte Modifiers { get; private set; }
+    public class KeyboardInputReport
+    {
+        public byte Modifiers { get; private set; }
 
-		public byte ReservedByte { get; private set; }
+        public byte ReservedByte { get; private set; }
 
-		public byte[] Keys { get; }
+        public byte[] Keys { get; }
 
-		public KeyboardInputReport(byte maxNumPressedKey)
-		{
-			Keys = new byte[maxNumPressedKey];
-		}
+        public KeyboardInputReport(byte maxNumPressedKey)
+        {
+            Keys = new byte[maxNumPressedKey];
+        }
 
-		public void AddKey(byte key)
-		{
-			if (Devices.Keys.IsModifierKey(key))
-			{
-				var modifierKeyMask = 0x80 >> (7 - (key - Devices.Keys.Modifiers.LeftCtrl));
-				Modifiers |= (byte)modifierKeyMask;
+        public void AddKey(byte key)
+        {
+            if (Devices.Keys.IsModifierKey(key))
+            {
+                var modifierKeyMask = 0x80 >> (7 - (key - Devices.Keys.Modifiers.LeftCtrl));
+                Modifiers |= (byte)modifierKeyMask;
 
-				return;
-			}
+                return;
+            }
 
-			var firstAvailableSlot = -1;
-			for (var slotIndex = 0; slotIndex < Keys.Length; slotIndex++)
-			{
-				var slotKey = Keys[slotIndex];
+            var firstAvailableSlot = -1;
+            for (var slotIndex = 0; slotIndex < Keys.Length; slotIndex++)
+            {
+                var slotKey = Keys[slotIndex];
 
-				// only 'press' the key if it has not been pressed before
-				if (slotKey == key)
-				{
-					return;
-				}
+                // only 'press' the key if it has not been pressed before
+                if (slotKey == key)
+                {
+                    return;
+                }
 
-				if (firstAvailableSlot == -1
-					&& slotKey == 0x00)
-				{
-					firstAvailableSlot = slotIndex;
-				}
-			}
+                if (firstAvailableSlot == -1
+                    && slotKey == 0x00)
+                {
+                    firstAvailableSlot = slotIndex;
+                }
+            }
 
-			if (firstAvailableSlot > -1)
-			{
-				Keys[firstAvailableSlot] = key;
-			}
-			else
-			{
-				// throw if the key cannot go in the report
-				throw new InvalidOperationException();
-			}
-		}
+            if (firstAvailableSlot > -1)
+            {
+                Keys[firstAvailableSlot] = key;
+            }
+            else
+            {
+                // throw if the key cannot go in the report
+                throw new InvalidOperationException();
+            }
+        }
 
-		public void RemoveKey(byte key)
-		{
-			for (var slotIndex = 0; slotIndex < Keys.Length; slotIndex++)
-			{
-				if (Keys[slotIndex] == key)
-				{
-					Keys[slotIndex] = 0x00;
-				}
-			}
-		}
+        public void RemoveKey(byte key)
+        {
+            for (var slotIndex = 0; slotIndex < Keys.Length; slotIndex++)
+            {
+                if (Keys[slotIndex] == key)
+                {
+                    Keys[slotIndex] = 0x00;
+                }
+            }
+        }
 
-		public void Reset()
-		{
-			Modifiers = 0;
-			ReservedByte = 0;
+        public void Reset()
+        {
+            Modifiers = 0;
+            ReservedByte = 0;
 
-			for (var i = 0; i < Keys.Length; i++)
-			{
-				Keys[i] = 0x00;
-			}
-		}
+            for (var i = 0; i < Keys.Length; i++)
+            {
+                Keys[i] = 0x00;
+            }
+        }
 
-		public byte[] ToBytes()
-		{
-			var result = new byte[2 + Keys.Length];
+        public byte[] ToBytes()
+        {
+            var result = new byte[2 + Keys.Length];
 
-			result[0] = Modifiers;
-			result[1] = ReservedByte;
+            result[0] = Modifiers;
+            result[1] = ReservedByte;
 
-			Array.Copy(
-				sourceArray: Keys,
-				sourceIndex: 0,
-				destinationArray: result,
-				destinationIndex: 2,
-				length: Keys.Length);
+            Array.Copy(
+                sourceArray: Keys,
+                sourceIndex: 0,
+                destinationArray: result,
+                destinationIndex: 2,
+                length: Keys.Length);
 
-			return result;
-		}
-	}
+            return result;
+        }
+    }
 }

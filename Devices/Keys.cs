@@ -1,4 +1,7 @@
-﻿namespace nanoFramework.Bluetooth.HID.Devices
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+
+namespace nanoFramework.Bluetooth.HID.Devices
 {
     public static class Keys
     {
@@ -87,7 +90,7 @@
             public const byte F13 = 0x45;
         }
 
-        public static class  Specials
+        public static class Specials
         {
             public const byte CapsLock = 0x39;
             public const byte PrintScr = 0x46;
@@ -155,7 +158,7 @@
         public static bool IsDigit(byte key)
         {
             return (key >= Numeric.Keyboard1
-                && key <= Numeric.Keyboard0) 
+                && key <= Numeric.Keyboard0)
                 || (key >= Keypad.Keypad1
                 && key <= Keypad.Keypad0);
         }

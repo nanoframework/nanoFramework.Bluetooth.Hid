@@ -1,4 +1,7 @@
-﻿using nanoFramework.Bluetooth.HID.Extensions;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+
+using nanoFramework.Bluetooth.HID.Extensions;
 using nanoFramework.Device.Bluetooth;
 
 namespace nanoFramework.Bluetooth.HID

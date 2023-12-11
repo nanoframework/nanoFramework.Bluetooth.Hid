@@ -1,4 +1,7 @@
-﻿using nanoFramework.Device.Bluetooth;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+
+using nanoFramework.Device.Bluetooth;
 
 namespace nanoFramework.Bluetooth.HID.Extensions
 {
@@ -11,7 +14,7 @@ namespace nanoFramework.Bluetooth.HID.Extensions
 
         internal static Buffer AsBuffer(this byte[] byteArray)
         {
-            return new (byteArray);
+            return new(byteArray);
         }
 
         internal static Buffer ToBuffer(this string str)
