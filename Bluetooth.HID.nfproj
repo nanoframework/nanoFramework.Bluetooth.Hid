@@ -45,7 +45,6 @@
     <Compile Include="Devices\MouseInputReport.cs" />
     <Compile Include="Extensions\BufferExtensions.cs" />
     <Compile Include="HidHostStateArgs.cs" />
-    <Compile Include="HidHostStateChangedEventHandler.cs" />
     <Compile Include="HidType.cs" />
     <Compile Include="Devices\Keyboard.cs" />
     <Compile Include="PnpElements.cs" />

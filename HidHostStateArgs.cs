@@ -5,10 +5,23 @@ using System;
 
 namespace nanoFramework.Bluetooth.HID
 {
+    /// <summary>
+    /// HID Host State Event Args.
+    /// </summary>
     public sealed class HidHostStateArgs : EventArgs
     {
+        /// <summary>
+        /// Gets a value indicating whether the HID host has been suspended.
+        /// </summary>
+        /// <remarks>
+        /// This value can be used as a signal to put the HID device in a power-saving state while the host is suspended.
+        /// </remarks>
         public bool IsHostSuspended { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HidHostStateArgs"/> class.
+        /// </summary>
+        /// <param name="hostStateFlag"></param>
         public HidHostStateArgs(byte hostStateFlag)
         {
             /*

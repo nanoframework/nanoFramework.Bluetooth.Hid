@@ -15,6 +15,8 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         protected GattLocalService HidGattService;
 
+        public delegate void HidHostStateChangedEventHandler(object sender, HidHostStateArgs args);
+
         public event HidHostStateChangedEventHandler HidHostStateChanged;
 
         public HIDService(ProtocolMode protocolMode)
