@@ -59,8 +59,18 @@ namespace nanoFramework.Bluetooth.HID.Services
             }
         }
 
+        /// <summary>
+        /// Creates the report map characteristic for this device.
+        /// </summary>
+        /// <exception cref="Exception">
+        /// Thrown if there was an error from the bluetooth stack. 
+        /// Check the exception message property for the error type.
+        /// </exception>
         protected abstract void CreateReportMapCharacteristic();
 
+        /// <summary>
+        /// Creates the report characteristic needed for this device.
+        /// </summary>
         protected abstract void CreateReportCharacteristics();
 
         private void CreateProtocolModeCharacteristic()

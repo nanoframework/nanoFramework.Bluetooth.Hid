@@ -6,6 +6,9 @@ using System.Collections;
 
 namespace nanoFramework.Bluetooth.HID.Devices
 {
+    /// <summary>
+    /// A class containing helper methods to use with <see cref="Keyboard"/>.
+    /// </summary>
     public static class KeyboardUtilities
     {
         private static readonly Hashtable map = new()
@@ -63,6 +66,11 @@ namespace nanoFramework.Bluetooth.HID.Devices
             { '/',  Symbols.Forwardslash }
         };
 
+        /// <summary>
+        /// Simulate typing a string on a keyboard.
+        /// </summary>
+        /// <param name="keyboard">The keyboard to simulate the typing on.</param>
+        /// <param name="input">The string input to type on the keyboard.</param>
         public static void TypeText(Keyboard keyboard, string input)
         {
             keyboard.ReleaseAll();

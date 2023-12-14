@@ -29,6 +29,13 @@ namespace nanoFramework.Bluetooth.HID.Devices
         public LedStatus LedStatus { get; }
 
         /// <summary>
+        /// LED Status Changed event handler.
+        /// </summary>
+        /// <param name="sender">The sender object instance.</param>
+        /// <param name="ledStatus">The LED Status report instance.</param>
+        public delegate void LedStatusChangedEventHandler(object sender, LedStatus ledStatus);
+
+        /// <summary>
         /// Occurs when the <see cref="LedStatus"/> value has changed.
         /// </summary>
         public event LedStatusChangedEventHandler LedStatusChanged;
@@ -122,10 +129,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
             _keyPressDelay = keyPressDelay;
         }
 
-        /// <summary>
-        /// Creates the report map characteristic for this device.
-        /// </summary>
-        /// <exception cref="Exception"></exception>
+        /// <inheritdoc/>
         protected override void CreateReportMapCharacteristic()
         {
             var reportMap = new byte[]
@@ -200,9 +204,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
             }
         }
 
-        /// <summary>
-        /// Creates the report characteristic needed for this device.
-        /// </summary>
+        /// <inheritdoc/>
         protected override void CreateReportCharacteristics()
         {
             CreateInputReportCharacteristic();

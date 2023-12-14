@@ -9,12 +9,22 @@ using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Devices
 {
+    /// <summary>
+    /// A generic Bluetooth Low-Energy Mouse Implementation.
+    /// </summary>
     public class Mouse : HidDevice
     {
         private readonly MouseInputReport _report;
 
         private GattLocalCharacteristic _inputReport;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Mouse"/> class.
+        /// </summary>
+        /// <param name="deviceName">The device name. Used when advertising the device.</param>
+        /// <param name="deviceInfo">Additional device information.</param>
+        /// <param name="protocolMode">The protocol mode to use when communicating with the HID Host. Use <see cref="ProtocolMode.Report"/> if unsure.</param>
+        /// <param name="plugAndPlayElements">Plug and Play information.</param>
         public Mouse(
             string deviceName,
             DeviceInformation deviceInfo,
@@ -24,6 +34,10 @@ namespace nanoFramework.Bluetooth.HID.Devices
             _report = new();
         }
 
+        /// <summary>
+        /// Simulates a mouse button click with the specified button.
+        /// </summary>
+        /// <param name="button">The button to click.</param>
         public void Click(MouseButton button)
         {
             _report.Reset();
@@ -35,18 +49,37 @@ namespace nanoFramework.Bluetooth.HID.Devices
             SendInputReport();
         }
 
+        /// <summary>
+        /// Simulates moving a mouse in a specific direction using the coordinates system.
+        /// </summary>
+        /// <param name="x">X-Axis value.</param>
+        /// <param name="y">Y-Axis value.</param>
+        /// <remarks>
+        /// <paramref name="x"/> &amp; <paramref name="y"/> are relative values to the last cursor
+        /// position. This means if the cursor is at (x: 500, y: 500) and the <see cref="Move(sbyte, sbyte)"/>
+        /// method is called with X = 100, Y = 50 then the new cursor position will be (X: 600, Y: 550).
+        /// </remarks>
         public void Move(sbyte x, sbyte y)
         {
             _report.Move(x, y);
             SendInputReport();
         }
 
+        /// <summary>
+        /// Simulates scrolling using the mouse scroll wheel.
+        /// </summary>
+        /// <param name="scollPosition">The scroll position.</param>
+        /// <remarks>
+        /// <paramref name="scollPosition"/> is a relative value that is accumulated with the last known
+        /// scroll position.
+        /// </remarks>
         public void Scroll(sbyte scollPosition)
         {
             _report.Scroll(scollPosition);
             SendInputReport();
         }
 
+        /// <inheritdoc/>
         protected override void CreateReportMapCharacteristic()
         {
             var reportMap = new byte[] {
@@ -109,6 +142,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
             }
         }
 
+        /// <inheritdoc/>
         protected override void CreateReportCharacteristics()
         {
             CreateInputReportCharacteristic();

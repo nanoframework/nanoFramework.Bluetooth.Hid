@@ -39,7 +39,6 @@
     <Compile Include="Devices\Keys.cs" />
     <Compile Include="Devices\KeyboardInputReport.cs" />
     <Compile Include="Devices\LedStatusChangedEventArgs.cs" />
-    <Compile Include="Devices\LedStatusChangedEventHandler.cs" />
     <Compile Include="Devices\Mouse.cs" />
     <Compile Include="Devices\MouseButton.cs" />
     <Compile Include="Devices\MouseInputReport.cs" />

@@ -3,6 +3,9 @@
 
 namespace nanoFramework.Bluetooth.HID.Devices
 {
+    /// <summary>
+    /// Supported mouse buttons.
+    /// </summary>
     public enum MouseButton : byte
     {
         /// <summary>Mouse Left.</summary>

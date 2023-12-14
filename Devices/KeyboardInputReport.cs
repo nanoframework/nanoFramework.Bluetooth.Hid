@@ -5,19 +5,40 @@ using System;
 
 namespace nanoFramework.Bluetooth.HID.Devices
 {
+    /// <summary>
+    /// A class representing a set of pressed keys on the keyboard.
+    /// </summary>
     public class KeyboardInputReport
     {
+        /// <summary>
+        /// Gets the byte mask representing the pressed modifier keys.
+        /// </summary>
         public byte Modifiers { get; private set; }
 
+        /// <summary>
+        /// Gets the OEM reserved byte.
+        /// </summary>
         public byte ReservedByte { get; private set; }
 
+        /// <summary>
+        /// Gets the pressed keys.
+        /// </summary>
         public byte[] Keys { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeyboardInputReport"/> class.
+        /// </summary>
+        /// <param name="maxNumPressedKey">The maximum number of keys that can be pressed at one time.</param>
         public KeyboardInputReport(byte maxNumPressedKey)
         {
             Keys = new byte[maxNumPressedKey];
         }
 
+        /// <summary>
+        /// Add a key to the set of pressed keys.
+        /// </summary>
+        /// <param name="key">The pressed key.</param>
+        /// <exception cref="InvalidOperationException">The maximum number of pressed keys has been reached.</exception>
         public void AddKey(byte key)
         {
             if (Devices.Keys.IsModifierKey(key))
@@ -57,6 +78,10 @@ namespace nanoFramework.Bluetooth.HID.Devices
             }
         }
 
+        /// <summary>
+        /// Removes a key from the set of pressed keys.
+        /// </summary>
+        /// <param name="key">The key to "unpress".</param>
         public void RemoveKey(byte key)
         {
             for (var slotIndex = 0; slotIndex < Keys.Length; slotIndex++)
@@ -68,6 +93,9 @@ namespace nanoFramework.Bluetooth.HID.Devices
             }
         }
 
+        /// <summary>
+        /// Resets and releases all keys and modifiers.
+        /// </summary>
         public void Reset()
         {
             Modifiers = 0;
@@ -79,6 +107,10 @@ namespace nanoFramework.Bluetooth.HID.Devices
             }
         }
 
+        /// <summary>
+        /// Serialize this instance to the input report byte array format.
+        /// </summary>
+        /// <returns>A byte array formatted as per the input report.</returns>
         public byte[] ToBytes()
         {
             var result = new byte[2 + Keys.Length];
