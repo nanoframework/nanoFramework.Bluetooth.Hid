@@ -9,19 +9,39 @@ using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Services
 {
+    /// <summary>
+    /// The Bluetooth LE Device Information Service.
+    /// </summary>
     public sealed class DeviceInfoService : BluetoothService
     {
+        /// <summary>
+        /// Gets the <see cref="DeviceInformation"/> instance containing
+        /// the information to report to the HID Host.
+        /// </summary>
         public DeviceInformation DeviceInformation { get; }
 
+        /// <summary>
+        /// Gets the <see cref="PnpElements"/> instance containing
+        /// Plug and Play information.
+        /// </summary>
         public PnpElements PnpElements { get; }
 
-        public DeviceInfoService(DeviceInformation deviceInformation,
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeviceInfoService"/> class.
+        /// </summary>
+        /// <param name="deviceInformation">The device information.</param>
+        /// <param name="pnpElements">The plug and play information.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="deviceInformation"/> cannot be null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="pnpElements"/> cannot be null.</exception>
+        public DeviceInfoService(
+            DeviceInformation deviceInformation,
             PnpElements pnpElements)
         {
             DeviceInformation = deviceInformation ?? throw new ArgumentNullException();
             PnpElements = pnpElements ?? throw new ArgumentNullException();
         }
 
+        /// <inheritdoc/>
         public override void Initialize()
         {
             var gattService = CreateOrGetGattService(GattServiceUuids.DeviceInformation);
@@ -38,18 +58,20 @@ namespace nanoFramework.Bluetooth.HID.Services
             CreatePnpIdCharacteristic(gattService, PnpElements);
         }
 
-        private static void CreateReadStaticCharacteristic(GattLocalService gattService, Guid Uuid, string data)
+        private static void CreateReadStaticCharacteristic(GattLocalService gattService, Guid uuid, string data)
         {
             if (data == null)
             {
                 return;
             }
 
-            var result = gattService.CreateCharacteristic(Uuid, new GattLocalCharacteristicParameters()
-            {
-                CharacteristicProperties = GattCharacteristicProperties.Read,
-                StaticValue = data.ToBuffer()
-            });
+            var result = gattService.CreateCharacteristic(
+                uuid,
+                new GattLocalCharacteristicParameters()
+                {
+                    CharacteristicProperties = GattCharacteristicProperties.Read,
+                    StaticValue = data.ToBuffer()
+                });
 
             if (result.Error != BluetoothError.Success)
             {
@@ -59,11 +81,13 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         private static void CreatePnpIdCharacteristic(GattLocalService gattService, PnpElements pnpElement)
         {
-            var pnpResult = gattService.CreateCharacteristic(GattCharacteristicUuids.PnpId, new()
-            {
-                CharacteristicProperties = GattCharacteristicProperties.Read,
-                StaticValue = pnpElement.ToBuffer()
-            });
+            var pnpResult = gattService.CreateCharacteristic(
+                GattCharacteristicUuids.PnpId,
+                new GattLocalCharacteristicParameters()
+                {
+                    CharacteristicProperties = GattCharacteristicProperties.Read,
+                    StaticValue = pnpElement.ToBuffer()
+                });
 
             if (pnpResult.Error != BluetoothError.Success)
             {

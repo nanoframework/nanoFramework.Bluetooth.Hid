@@ -9,7 +9,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
     public class LedStatus
     {
         /// <summary>
-        /// Gets a value indciating whether the num lock key LED is on.
+        /// Gets a value indicating whether the num lock key LED is on.
         /// </summary>
         public bool IsNumLockOn { get; internal set; }
 

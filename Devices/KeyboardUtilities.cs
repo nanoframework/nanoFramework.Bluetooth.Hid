@@ -1,8 +1,8 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using static nanoFramework.Bluetooth.HID.Devices.Keys;
 using System.Collections;
+using static nanoFramework.Bluetooth.HID.Devices.Keys;
 
 namespace nanoFramework.Bluetooth.HID.Devices
 {
@@ -11,7 +11,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
     /// </summary>
     public static class KeyboardUtilities
     {
-        private static readonly Hashtable map = new()
+        private static readonly Hashtable KeyMap = new Hashtable()
         {
             { 'A',  Alphabet.A },
             { 'B',  Alphabet.B },
@@ -39,7 +39,6 @@ namespace nanoFramework.Bluetooth.HID.Devices
             { 'X',  Alphabet.X },
             { 'Y',  Alphabet.Y },
             { 'Z',  Alphabet.Z },
-
             { '1',  Numeric.Keyboard1 },
             { '2',  Numeric.Keyboard2 },
             { '3',  Numeric.Keyboard3 },
@@ -50,9 +49,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
             { '8',  Numeric.Keyboard8 },
             { '9',  Numeric.Keyboard9 },
             { '0',  Numeric.Keyboard0 },
-
             { ' ',  Control.Space },
-
             { '-',  Symbols.Minus },
             { '=',  Symbols.Equal },
             { '[',  Symbols.OpenSquareBracket },
@@ -78,7 +75,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
             foreach (char character in input)
             {
                 var upperCaseCharacter = character.ToUpper();
-                var key = map[upperCaseCharacter];
+                var key = KeyMap[upperCaseCharacter];
                 var keyVal = (byte)key;
 
                 if (key != null)

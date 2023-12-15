@@ -51,13 +51,12 @@ namespace nanoFramework.Bluetooth.HID.Devices
             string deviceName,
             DeviceInformation deviceInfo,
             ProtocolMode protocolMode,
-            PnpElements plugAndPlayElements
-            ) : base(deviceName, deviceInfo, HidType.Keyboard, protocolMode, plugAndPlayElements)
+            PnpElements plugAndPlayElements) : base(deviceName, deviceInfo, HidType.Keyboard, protocolMode, plugAndPlayElements)
         {
-            _report = new(maxNumPressedKey: 6);
+            _report = new KeyboardInputReport(maxNumPressedKey: 6);
             _keyPressDelay = TimeSpan.FromMilliseconds(150);
 
-            LedStatus = new();
+            LedStatus = new LedStatus();
         }
 
         /// <summary>
@@ -116,7 +115,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
         /// Sets how long a key would remain pressed when using <see cref="Press(byte)"/> and <see cref="Send(byte[])"/>.
         /// </summary>
         /// <param name="keyPressDelay">The amount of time to hold down a key when using <see cref="Press(byte)"/> and <see cref="Send(byte[])"/>.</param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">The <paramref name="keyPressDelay"/> value must not equal 0 or equal to <see cref="TimeSpan.MinValue"/> or <see cref="TimeSpan.MaxValue"/>.</exception>
         public void SetKeyPressDelay(TimeSpan keyPressDelay)
         {
             if (keyPressDelay == TimeSpan.Zero
@@ -177,7 +176,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
 
             var reportMapCharacteristicResult = HidGattService.CreateCharacteristic(
                 GattCharacteristicUuids.ReportMap,
-                new()
+                new GattLocalCharacteristicParameters()
                 {
                     CharacteristicProperties = GattCharacteristicProperties.Read,
                     ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
@@ -193,7 +192,7 @@ namespace nanoFramework.Bluetooth.HID.Devices
                 .Characteristic
                 .CreateDescriptor(
                     Utilities.CreateUuidFromShortCode(10503),
-                    new()
+                    new GattLocalDescriptorParameters()
                     {
                         StaticValue = (new byte[] { 0x00, 0x00 }).AsBuffer()
                     });
@@ -213,37 +212,43 @@ namespace nanoFramework.Bluetooth.HID.Devices
 
         private void CreateInputReportCharacteristic()
         {
-            var inputReportCharacteristicResult = HidGattService.CreateCharacteristic(GattCharacteristicUuids.Report, new()
-            {
-                CharacteristicProperties = GattCharacteristicProperties.Read | GattCharacteristicProperties.Notify,
-                ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
-                WriteProtectionLevel = GattProtectionLevel.EncryptionRequired,
-                StaticValue = _report.ToBytes().AsBuffer()
-            });
+            var inputReportCharacteristicResult = HidGattService.CreateCharacteristic(
+                GattCharacteristicUuids.Report,
+                new GattLocalCharacteristicParameters()
+                {
+                    CharacteristicProperties = GattCharacteristicProperties.Read | GattCharacteristicProperties.Notify,
+                    ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
+                    WriteProtectionLevel = GattProtectionLevel.EncryptionRequired,
+                    StaticValue = _report.ToBytes().AsBuffer()
+                });
 
             if (inputReportCharacteristicResult.Error != BluetoothError.Success)
             {
                 throw new Exception(inputReportCharacteristicResult.Error.ToString());
             }
 
-            var clientConfigDescriptorResult = inputReportCharacteristicResult.Characteristic.CreateDescriptor(GattDescriptorUuids.ClientCharacteristicConfiguration, new()
-            {
-                ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
-                WriteProtectionLevel = GattProtectionLevel.EncryptionRequired,
-                StaticValue = (new byte[] { 0x00, 0x00 }).AsBuffer() // no notification | 0x0001 enable notification | 0x0002 enable indication
-            });
+            var clientConfigDescriptorResult = inputReportCharacteristicResult.Characteristic.CreateDescriptor(
+                GattDescriptorUuids.ClientCharacteristicConfiguration,
+                new GattLocalDescriptorParameters()
+                {
+                    ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
+                    WriteProtectionLevel = GattProtectionLevel.EncryptionRequired,
+                    StaticValue = (new byte[] { 0x00, 0x00 }).AsBuffer() // no notification | 0x0001 enable notification | 0x0002 enable indication
+                });
 
             if (clientConfigDescriptorResult.Error != BluetoothError.Success)
             {
                 throw new Exception(clientConfigDescriptorResult.Error.ToString());
             }
 
-            var reportRefDescriptorResult = inputReportCharacteristicResult.Characteristic.CreateDescriptor(Utilities.CreateUuidFromShortCode(10504), new()
-            {
-                ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
-                WriteProtectionLevel = GattProtectionLevel.EncryptionRequired,
-                StaticValue = (new byte[] { 0x01, 0x01 }).AsBuffer() // report id + report type
-            });
+            var reportRefDescriptorResult = inputReportCharacteristicResult.Characteristic.CreateDescriptor(
+                Utilities.CreateUuidFromShortCode(10504),
+                new GattLocalDescriptorParameters()
+                {
+                    ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
+                    WriteProtectionLevel = GattProtectionLevel.EncryptionRequired,
+                    StaticValue = (new byte[] { 0x01, 0x01 }).AsBuffer() // report id + report type
+                });
 
             if (reportRefDescriptorResult.Error != BluetoothError.Success)
             {
@@ -255,24 +260,28 @@ namespace nanoFramework.Bluetooth.HID.Devices
 
         private void CreateOutputReportCharacteristic()
         {
-            var outputReportCharacteristicResult = HidGattService.CreateCharacteristic(GattCharacteristicUuids.Report, new()
-            {
-                CharacteristicProperties = GattCharacteristicProperties.Read | GattCharacteristicProperties.Write | GattCharacteristicProperties.WriteWithoutResponse,
-                ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
-                WriteProtectionLevel = GattProtectionLevel.EncryptionRequired
-            });
+            var outputReportCharacteristicResult = HidGattService.CreateCharacteristic(
+                GattCharacteristicUuids.Report,
+                new GattLocalCharacteristicParameters()
+                {
+                    CharacteristicProperties = GattCharacteristicProperties.Read | GattCharacteristicProperties.Write | GattCharacteristicProperties.WriteWithoutResponse,
+                    ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
+                    WriteProtectionLevel = GattProtectionLevel.EncryptionRequired
+                });
 
             if (outputReportCharacteristicResult.Error != BluetoothError.Success)
             {
                 throw new Exception(outputReportCharacteristicResult.Error.ToString());
             }
 
-            var reportRefDescriptorResult = outputReportCharacteristicResult.Characteristic.CreateDescriptor(Utilities.CreateUuidFromShortCode(10504), new()
-            {
-                ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
-                WriteProtectionLevel = GattProtectionLevel.EncryptionRequired,
-                StaticValue = (new byte[] { 0x00, 0x02 }).AsBuffer() // report id + report type
-            });
+            var reportRefDescriptorResult = outputReportCharacteristicResult.Characteristic.CreateDescriptor(
+                Utilities.CreateUuidFromShortCode(10504),
+                new GattLocalDescriptorParameters()
+                {
+                    ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
+                    WriteProtectionLevel = GattProtectionLevel.EncryptionRequired,
+                    StaticValue = (new byte[] { 0x00, 0x02 }).AsBuffer() // report id + report type
+                });
 
             if (reportRefDescriptorResult.Error != BluetoothError.Success)
             {

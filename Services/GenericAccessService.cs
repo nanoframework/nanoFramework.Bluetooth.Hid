@@ -9,12 +9,27 @@ using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Services
 {
+    /// <summary>
+    /// The Bluetooth LE Generic Access Service.
+    /// </summary>
     public sealed class GenericAccessService : BluetoothService
     {
+        /// <summary>
+        /// Gets the device name.
+        /// </summary>
         public string DeviceName { get; }
 
+        /// <summary>
+        /// Gets the device appearance.
+        /// </summary>
         public HidType Appearance { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GenericAccessService"/> class.
+        /// </summary>
+        /// <param name="deviceName">The device name.</param>
+        /// <param name="appearance">The device appearance.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="deviceName"/> cannot be null.</exception>
         public GenericAccessService(string deviceName, HidType appearance)
         {
             if (string.IsNullOrEmpty(deviceName))
@@ -26,6 +41,7 @@ namespace nanoFramework.Bluetooth.HID.Services
             Appearance = appearance;
         }
 
+        /// <inheritdoc/>
         public override void Initialize()
         {
             var gattService = CreateOrGetGattService(GattServiceUuids.GenericAccess);
@@ -36,11 +52,13 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         private void CreateGapDeviceNameCharacteristic(GattLocalService gattService)
         {
-            var deviceNameCharacteristicResult = gattService.CreateCharacteristic(GattCharacteristicUuids.GapDeviceName, new()
-            {
-                CharacteristicProperties = GattCharacteristicProperties.Read,
-                StaticValue = DeviceName.ToBuffer()
-            });
+            var deviceNameCharacteristicResult = gattService.CreateCharacteristic(
+                GattCharacteristicUuids.GapDeviceName,
+                new GattLocalCharacteristicParameters()
+                {
+                    CharacteristicProperties = GattCharacteristicProperties.Read,
+                    StaticValue = DeviceName.ToBuffer()
+                });
 
             if (deviceNameCharacteristicResult.Error != BluetoothError.Success)
             {
@@ -50,11 +68,13 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         private void CreateGapAppearanceCharacteristic(GattLocalService gattService)
         {
-            var appearanceCharacteristicResult = gattService.CreateCharacteristic(GattCharacteristicUuids.GapAppearance, new()
-            {
-                CharacteristicProperties = GattCharacteristicProperties.Read,
-                StaticValue = ((ushort)Appearance).ToBuffer()
-            });
+            var appearanceCharacteristicResult = gattService.CreateCharacteristic(
+                GattCharacteristicUuids.GapAppearance,
+                new GattLocalCharacteristicParameters()
+                {
+                    CharacteristicProperties = GattCharacteristicProperties.Read,
+                    StaticValue = ((ushort)Appearance).ToBuffer()
+                });
 
             if (appearanceCharacteristicResult.Error != BluetoothError.Success)
             {

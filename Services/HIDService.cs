@@ -9,21 +9,40 @@ using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Services
 {
+    /// <summary>
+    /// Base class for HID Services.
+    /// </summary>
     public abstract class HIDService : BluetoothService
     {
         private readonly ProtocolMode _protocolMode;
 
-        protected GattLocalService HidGattService;
+        /// <summary>
+        /// Gets or sets the HID GATT Bluetooth Service.
+        /// </summary>
+        protected GattLocalService HidGattService { get; set; }
 
+        /// <summary>
+        /// HID Host State Changed event handler.
+        /// </summary>
+        /// <param name="sender">The sender object instance.</param>
+        /// <param name="args">The event arguments.</param>
         public delegate void HidHostStateChangedEventHandler(object sender, HidHostStateArgs args);
 
+        /// <summary>
+        /// Occurs when the HID has changed its state.
+        /// </summary>
         public event HidHostStateChangedEventHandler HidHostStateChanged;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HIDService"/> class.
+        /// </summary>
+        /// <param name="protocolMode">The report mode to use for this device.</param>
         public HIDService(ProtocolMode protocolMode)
         {
             _protocolMode = protocolMode;
         }
 
+        /// <inheritdoc/>
         public override void Initialize()
         {
             HidGattService = CreateOrGetGattService(GattServiceUuids.HumanInterfaceDevice);
@@ -37,6 +56,10 @@ namespace nanoFramework.Bluetooth.HID.Services
             CreateHidControlPointCharacteristic();
         }
 
+        /// <summary>
+        /// Create the required HID information bluetooth characteristic.
+        /// </summary>
+        /// <exception cref="Exception">Bluetooth error.</exception>
         protected virtual void CreateHidInformationCharacteristic()
         {
             var hidInfo = new byte[]
@@ -47,11 +70,13 @@ namespace nanoFramework.Bluetooth.HID.Services
                 0x02  // flags (bit 0: remote wake 0 = false / bit 1: normally connectable (bool))
             };
 
-            var result = HidGattService.CreateCharacteristic(GattCharacteristicUuids.HidInformation, new()
-            {
-                CharacteristicProperties = GattCharacteristicProperties.Read,
-                StaticValue = hidInfo.AsBuffer()
-            });
+            var result = HidGattService.CreateCharacteristic(
+                GattCharacteristicUuids.HidInformation,
+                new GattLocalCharacteristicParameters()
+                {
+                    CharacteristicProperties = GattCharacteristicProperties.Read,
+                    StaticValue = hidInfo.AsBuffer()
+                });
 
             if (result.Error != BluetoothError.Success)
             {
@@ -75,11 +100,13 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         private void CreateProtocolModeCharacteristic()
         {
-            var result = HidGattService.CreateCharacteristic(GattCharacteristicUuids.ProtocolMode, new()
-            {
-                CharacteristicProperties = GattCharacteristicProperties.Read,
-                StaticValue = (new byte[1] { (byte)_protocolMode }).AsBuffer()
-            });
+            var result = HidGattService.CreateCharacteristic(
+                GattCharacteristicUuids.ProtocolMode,
+                new GattLocalCharacteristicParameters()
+                {
+                    CharacteristicProperties = GattCharacteristicProperties.Read,
+                    StaticValue = (new byte[1] { (byte)_protocolMode }).AsBuffer()
+                });
 
             if (result.Error != BluetoothError.Success)
             {
@@ -89,11 +116,13 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         private void CreateHidControlPointCharacteristic()
         {
-            var hidControlPointCharacteristicResult = HidGattService.CreateCharacteristic(GattCharacteristicUuids.HidControlPoint, new()
-            {
-                CharacteristicProperties = GattCharacteristicProperties.WriteWithoutResponse,
-                ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
-            });
+            var hidControlPointCharacteristicResult = HidGattService.CreateCharacteristic(
+                GattCharacteristicUuids.HidControlPoint,
+                new GattLocalCharacteristicParameters()
+                {
+                    CharacteristicProperties = GattCharacteristicProperties.WriteWithoutResponse,
+                    ReadProtectionLevel = GattProtectionLevel.EncryptionRequired,
+                });
 
             if (hidControlPointCharacteristicResult.Error != BluetoothError.Success)
             {

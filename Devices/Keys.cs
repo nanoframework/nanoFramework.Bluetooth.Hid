@@ -14,132 +14,132 @@ namespace nanoFramework.Bluetooth.HID.Devices
         public static class Alphabet
         {
             /// <summary>
-            /// A
+            /// A.
             /// </summary>
             public const byte A = 0x04;
 
             /// <summary>
-            /// B
+            /// B.
             /// </summary>
             public const byte B = 0x05;
 
             /// <summary>
-            /// C
+            /// C.
             /// </summary>
             public const byte C = 0x06;
 
             /// <summary>
-            /// D
+            /// D.
             /// </summary>
             public const byte D = 0x07;
 
             /// <summary>
-            /// E
+            /// E.
             /// </summary>
             public const byte E = 0x08;
 
             /// <summary>
-            /// F
+            /// F.
             /// </summary>
             public const byte F = 0x09;
 
             /// <summary>
-            /// G
+            /// G.
             /// </summary>
             public const byte G = 0x0A;
 
             /// <summary>
-            /// H
+            /// H.
             /// </summary>
             public const byte H = 0x0B;
 
             /// <summary>
-            /// I
+            /// I.
             /// </summary>
             public const byte I = 0x0C;
 
             /// <summary>
-            /// J
+            /// J.
             /// </summary>
             public const byte J = 0x0D;
 
             /// <summary>
-            /// K
+            /// K.
             /// </summary>
             public const byte K = 0x0E;
 
             /// <summary>
-            /// L
+            /// L.
             /// </summary>
             public const byte L = 0x0F;
 
             /// <summary>
-            /// M
+            /// M.
             /// </summary>
             public const byte M = 0x10;
 
             /// <summary>
-            /// N
+            /// N.
             /// </summary>
             public const byte N = 0x11;
 
             /// <summary>
-            /// O
+            /// O.
             /// </summary>
             public const byte O = 0x12;
 
             /// <summary>
-            /// P
+            /// P.
             /// </summary>
             public const byte P = 0x13;
 
             /// <summary>
-            /// Q
+            /// Q.
             /// </summary>
             public const byte Q = 0x14;
 
             /// <summary>
-            /// R
+            /// R.
             /// </summary>
             public const byte R = 0x15;
 
             /// <summary>
-            /// S
+            /// S.
             /// </summary>
             public const byte S = 0x16;
 
             /// <summary>
-            /// T
+            /// T.
             /// </summary>
             public const byte T = 0x17;
 
             /// <summary>
-            /// U
+            /// U.
             /// </summary>
             public const byte U = 0x18;
 
             /// <summary>
-            /// V
+            /// V.
             /// </summary>
             public const byte V = 0x19;
 
             /// <summary>
-            /// W
+            /// W.
             /// </summary>
             public const byte W = 0x1A;
 
             /// <summary>
-            /// X
+            /// X.
             /// </summary>
             public const byte X = 0x1B;
 
             /// <summary>
-            /// Y
+            /// Y.
             /// </summary>
             public const byte Y = 0x1C;
 
             /// <summary>
-            /// Z
+            /// Z.
             /// </summary>
             public const byte Z = 0x1D;
         }
@@ -150,52 +150,52 @@ namespace nanoFramework.Bluetooth.HID.Devices
         public static class Numeric
         {
             /// <summary>
-            /// 1
+            /// Number Keys Row 1.
             /// </summary>
             public const byte Keyboard1 = 0x1E;
 
             /// <summary>
-            /// 2
+            /// Number Keys Row 2.
             /// </summary>
             public const byte Keyboard2 = 0x1F;
 
             /// <summary>
-            /// 3
+            /// Number Keys Row 3.
             /// </summary>
             public const byte Keyboard3 = 0x20;
 
             /// <summary>
-            /// 4
+            /// Number Keys Row 4.
             /// </summary>
             public const byte Keyboard4 = 0x21;
 
             /// <summary>
-            /// 5
+            /// Number Keys Row 5.
             /// </summary>
             public const byte Keyboard5 = 0x22;
 
             /// <summary>
-            /// 6
+            /// Number Keys Row 6.
             /// </summary>
             public const byte Keyboard6 = 0x23;
 
             /// <summary>
-            /// 7
+            /// Number Keys Row 7.
             /// </summary>
             public const byte Keyboard7 = 0x24;
 
             /// <summary>
-            /// 8
+            /// Number Keys Row 8.
             /// </summary>
             public const byte Keyboard8 = 0x25;
 
             /// <summary>
-            /// 9
+            /// Number Keys Row 9.
             /// </summary>
             public const byte Keyboard9 = 0x26;
 
             /// <summary>
-            /// 0
+            /// Number Keys Row 0.
             /// </summary>
             public const byte Keyboard0 = 0x27;
         }
@@ -303,62 +303,62 @@ namespace nanoFramework.Bluetooth.HID.Devices
         public static class Functions
         {
             /// <summary>
-            /// F1.
+            /// Function Key F1.
             /// </summary>
             public const byte F1 = 0x3A;
 
             /// <summary>
-            /// F2.
+            /// Function Key F2.
             /// </summary>
             public const byte F2 = 0x3B;
 
             /// <summary>
-            /// F3.
+            /// Function Key F3.
             /// </summary>
             public const byte F3 = 0x3C;
 
             /// <summary>
-            /// F4.
+            /// Function Key F4.
             /// </summary>
             public const byte F4 = 0x3D;
 
             /// <summary>
-            /// F5.
+            /// Function Key F5.
             /// </summary>
             public const byte F5 = 0x3E;
 
             /// <summary>
-            /// F6.
+            /// Function Key F6.
             /// </summary>
             public const byte F6 = 0x3F;
 
             /// <summary>
-            /// F7.
+            /// Function Key F7.
             /// </summary>
             public const byte F7 = 0x40;
 
             /// <summary>
-            /// F8.
+            /// Function Key F8.
             /// </summary>
             public const byte F8 = 0x41;
 
             /// <summary>
-            /// F9.
+            /// Function Key F9.
             /// </summary>
             public const byte F9 = 0x42;
 
             /// <summary>
-            /// F10.
+            /// Function Key F10.
             /// </summary>
             public const byte F10 = 0x43;
 
             /// <summary>
-            /// F11.
+            /// Function Key F11.
             /// </summary>
             public const byte F12 = 0x44;
 
             /// <summary>
-            /// F12.
+            /// Function Key F12.
             /// </summary>
             public const byte F13 = 0x45;
         }
@@ -470,57 +470,57 @@ namespace nanoFramework.Bluetooth.HID.Devices
             public const byte KeypadPlus = 0x57;
 
             /// <summary>
-            /// keypad Enter.
+            /// Keypad Enter.
             /// </summary>
             public const byte KeypadEnter = 0x58;
 
             /// <summary>
-            /// 1.
+            /// Keypad Key 1.
             /// </summary>
             public const byte Keypad1 = 0x59;
 
             /// <summary>
-            /// 2.
+            /// Keypad Key 2.
             /// </summary>
             public const byte Keypad2 = 0x5A;
 
             /// <summary>
-            /// 3.
+            /// Keypad Key 3.
             /// </summary>
             public const byte Keypad3 = 0x5B;
 
             /// <summary>
-            /// 4.
+            /// Keypad Key 4.
             /// </summary>
             public const byte Keypad4 = 0x5C;
 
             /// <summary>
-            /// 5.
+            /// Keypad Key 5.
             /// </summary>
             public const byte Keypad5 = 0x5D;
 
             /// <summary>
-            /// 6.
+            /// Keypad Key 6.
             /// </summary>
             public const byte Keypad6 = 0x5E;
 
             /// <summary>
-            /// 7.
+            /// Keypad Key 7.
             /// </summary>
             public const byte Keypad7 = 0x5F;
 
             /// <summary>
-            /// 8.
+            /// Keypad Key 8.
             /// </summary>
             public const byte Keypad8 = 0x60;
 
             /// <summary>
-            /// 9.
+            /// Keypad Key 9.
             /// </summary>
             public const byte Keypad9 = 0x61;
 
             /// <summary>
-            /// 10.
+            /// Keypad Key 10.
             /// </summary>
             public const byte Keypad0 = 0x62;
 

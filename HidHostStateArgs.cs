@@ -21,7 +21,7 @@ namespace nanoFramework.Bluetooth.HID
         /// <summary>
         /// Initializes a new instance of the <see cref="HidHostStateArgs"/> class.
         /// </summary>
-        /// <param name="hostStateFlag"></param>
+        /// <param name="hostStateFlag">HID Host State value. 0x00 = Suspend, 0x01 = Exit Suspend.</param>
         public HidHostStateArgs(byte hostStateFlag)
         {
             /*

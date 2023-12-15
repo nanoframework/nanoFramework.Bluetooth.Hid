@@ -7,6 +7,8 @@ using nanoFramework.Bluetooth.HID.Services;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
+using UnitsNet;
+
 namespace nanoFramework.Bluetooth.HID.Devices
 {
     /// <summary>
@@ -67,6 +69,15 @@ namespace nanoFramework.Bluetooth.HID.Devices
         public bool IsConnected { get; private set; }
 
         /// <summary>
+        /// Gets or sets the current battery level of the device to report to the HID Host.
+        /// </summary>
+        public Ratio BatteryLevel
+        {
+            get => BatteryService.BatteryLevel;
+            set => BatteryService.BatteryLevel = value;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="HidDevice"/> class.
         /// </summary>
         /// <param name="deviceName">The name to use when advertising the device.</param>
@@ -121,6 +132,22 @@ namespace nanoFramework.Bluetooth.HID.Devices
         {
             StopAdvertisingHidService();
             StopBleServer();
+        }
+
+        /// <summary>
+        /// Enable the battery level reporting capability.
+        /// </summary>
+        public virtual void EnableBattery()
+        {
+            BatteryService.Enable();
+        }
+
+        /// <summary>
+        /// Disable the battery level reporting capability.
+        /// </summary>
+        public virtual void DisableBattery()
+        {
+            BatteryService.Disable();
         }
 
         private void AdvertiseHidService()

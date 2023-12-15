@@ -14,7 +14,7 @@ namespace nanoFramework.Bluetooth.HID.Extensions
 
         internal static Buffer AsBuffer(this byte[] byteArray)
         {
-            return new(byteArray);
+            return new Buffer(byteArray);
         }
 
         internal static Buffer ToBuffer(this string str)

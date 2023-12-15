@@ -9,14 +9,24 @@ using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 namespace nanoFramework.Bluetooth.HID.Services
 {
+    /// <summary>
+    /// The Bluetooth LE scan parameters service.
+    /// </summary>
     public sealed class ScanParamsService : BluetoothService
     {
         private GattLocalCharacteristic scanRefreshCharacteristic;
 
+        /// <summary>
+        /// Gets the scan interval value.
+        /// </summary>
         public ushort ScanInterval { get; private set; }
 
+        /// <summary>
+        /// Gets the scan window value.
+        /// </summary>
         public ushort ScanWindow { get; private set; }
 
+        /// <inheritdoc/>
         public override void Initialize()
         {
             var gattService = CreateOrGetGattService(GattServiceUuids.ScanParameters);
@@ -25,6 +35,10 @@ namespace nanoFramework.Bluetooth.HID.Services
             CreateScanRefreshCharacteristic(gattService);
         }
 
+        /// <summary>
+        /// Request the HID Host to refresh the bluetooth scan parameters.
+        /// </summary>
+        /// <exception cref="InvalidOperationException"><see cref="Initialize"/> must be called first.</exception>
         public void RequestRefresh()
         {
             if (scanRefreshCharacteristic == null)
@@ -37,11 +51,13 @@ namespace nanoFramework.Bluetooth.HID.Services
 
         private void CreateScanIntervalWindowCharacteristic(GattLocalService gattService)
         {
-            var result = gattService.CreateCharacteristic(GattCharacteristicUuids.ScanIntervalWindow, new()
-            {
-                CharacteristicProperties = GattCharacteristicProperties.WriteWithoutResponse,
-                UserDescription = "Scan Interval Window"
-            });
+            var result = gattService.CreateCharacteristic(
+                GattCharacteristicUuids.ScanIntervalWindow,
+                new GattLocalCharacteristicParameters()
+                {
+                    CharacteristicProperties = GattCharacteristicProperties.WriteWithoutResponse,
+                    UserDescription = "Scan Interval Window"
+                });
 
             if (result.Error != BluetoothError.Success)
             {
@@ -63,17 +79,19 @@ namespace nanoFramework.Bluetooth.HID.Services
             }
             catch
             {
-                //do nothing
+                // do nothing
             }
         }
 
         private void CreateScanRefreshCharacteristic(GattLocalService gattService)
         {
-            var result = gattService.CreateCharacteristic(GattCharacteristicUuids.ScanRefresh, new()
-            {
-                CharacteristicProperties = GattCharacteristicProperties.Notify,
-                UserDescription = "Scan Refresh"
-            });
+            var result = gattService.CreateCharacteristic(
+                GattCharacteristicUuids.ScanRefresh,
+                new GattLocalCharacteristicParameters()
+                {
+                    CharacteristicProperties = GattCharacteristicProperties.Notify,
+                    UserDescription = "Scan Refresh"
+                });
 
             if (result.Error != BluetoothError.Success)
             {
