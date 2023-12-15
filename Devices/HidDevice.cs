@@ -3,20 +3,20 @@
 
 using System;
 
-using nanoFramework.Bluetooth.HID.Services;
+using nanoFramework.Bluetooth.Hid.Services;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 using UnitsNet;
 
-namespace nanoFramework.Bluetooth.HID.Devices
+namespace nanoFramework.Bluetooth.Hid.Devices
 {
     /// <summary>
     /// HID Device Base Class.
     /// </summary>
-    public abstract class HidDevice : HIDService, IDisposable
+    public abstract class HidDevice : HidService, IDisposable
     {
-        private GattServiceProvider hidDeviceServiceProvider;
+        private GattServiceProvider _hidDeviceServiceProvider;
 
         /// <summary>
         /// The device name.
@@ -152,8 +152,8 @@ namespace nanoFramework.Bluetooth.HID.Devices
 
         private void AdvertiseHidService()
         {
-            hidDeviceServiceProvider = BluetoothLEServer.Instance.GetServiceByUUID(GattServiceUuids.HumanInterfaceDevice);
-            if (hidDeviceServiceProvider == null)
+            _hidDeviceServiceProvider = BluetoothLEServer.Instance.GetServiceByUUID(GattServiceUuids.HumanInterfaceDevice);
+            if (_hidDeviceServiceProvider == null)
             {
                 throw new InvalidOperationException();
             }
@@ -165,17 +165,17 @@ namespace nanoFramework.Bluetooth.HID.Devices
             };
 
             adParams.Advertisement.LocalName = DeviceName;
-            hidDeviceServiceProvider.StartAdvertising(adParams);
+            _hidDeviceServiceProvider.StartAdvertising(adParams);
         }
 
         private void StopAdvertisingHidService()
         {
-            if (hidDeviceServiceProvider == null)
+            if (_hidDeviceServiceProvider == null)
             {
                 return;
             }
 
-            hidDeviceServiceProvider.StopAdvertising();
+            _hidDeviceServiceProvider.StopAdvertising();
         }
 
         private void StartBleServer()

@@ -3,7 +3,7 @@
 
 using nanoFramework.Device.Bluetooth;
 
-namespace nanoFramework.Bluetooth.HID.Extensions
+namespace nanoFramework.Bluetooth.Hid.Extensions
 {
     internal static class BufferExtensions
     {

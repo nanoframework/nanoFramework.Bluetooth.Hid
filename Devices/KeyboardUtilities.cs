@@ -2,9 +2,11 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections;
-using static nanoFramework.Bluetooth.HID.Devices.Keys;
+using System.Diagnostics;
 
-namespace nanoFramework.Bluetooth.HID.Devices
+using static nanoFramework.Bluetooth.Hid.Devices.Keys;
+
+namespace nanoFramework.Bluetooth.Hid.Devices
 {
     /// <summary>
     /// A class containing helper methods to use with <see cref="Keyboard"/>.
@@ -68,27 +70,43 @@ namespace nanoFramework.Bluetooth.HID.Devices
         /// </summary>
         /// <param name="keyboard">The keyboard to simulate the typing on.</param>
         /// <param name="input">The string input to type on the keyboard.</param>
+        /// <remarks>
+        /// This method only supports ASCII characters found on English keyboards.
+        /// </remarks>
         public static void TypeText(Keyboard keyboard, string input)
         {
             keyboard.ReleaseAll();
 
             foreach (char character in input)
             {
-                var upperCaseCharacter = character.ToUpper();
-                var key = KeyMap[upperCaseCharacter];
-                var keyVal = (byte)key;
-
-                if (key != null)
+                try
                 {
-                    if (IsLetter(keyVal) && upperCaseCharacter == character)
+                    var upperCaseCharacter = character.ToUpper();
+                    var key = KeyMap[upperCaseCharacter];
+
+                    // if the character is not in the map, move to the next one
+                    if (key == null)
                     {
-                        keyboard.Press(Modifiers.LeftShift);
+                        continue;
                     }
 
-                    keyboard.Press((byte)key);
-                }
+                    var keyVal = (byte)key;
 
-                keyboard.ReleaseAll();
+                    if (key != null)
+                    {
+                        if (IsLetter(keyVal) && upperCaseCharacter == character)
+                        {
+                            keyboard.Press(Modifiers.LeftShift);
+                        }
+
+                        keyboard.Press((byte)key);
+                    }
+
+                    keyboard.ReleaseAll();
+                }
+                catch
+                {
+                }
             }
         }
     }

@@ -3,7 +3,7 @@
 
 using System;
 
-namespace nanoFramework.Bluetooth.HID.Devices
+namespace nanoFramework.Bluetooth.Hid.Devices
 {
     /// <summary>
     /// A class representing a set of pressed keys on the keyboard.

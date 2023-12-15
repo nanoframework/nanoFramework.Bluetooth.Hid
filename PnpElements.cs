@@ -1,15 +1,15 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using nanoFramework.Bluetooth.HID.Extensions;
+using nanoFramework.Bluetooth.Hid.Extensions;
 using nanoFramework.Device.Bluetooth;
 
-namespace nanoFramework.Bluetooth.HID
+namespace nanoFramework.Bluetooth.Hid
 {
     /// <summary>
     /// The Plug and Play Information.
     /// </summary>
-    public sealed class PnpElements
+    public class PnpElements
     {
         /// <summary>
         /// Gets the PnP Signature.

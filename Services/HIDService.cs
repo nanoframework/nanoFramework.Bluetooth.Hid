@@ -3,16 +3,16 @@
 
 using System;
 
-using nanoFramework.Bluetooth.HID.Extensions;
+using nanoFramework.Bluetooth.Hid.Extensions;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
-namespace nanoFramework.Bluetooth.HID.Services
+namespace nanoFramework.Bluetooth.Hid.Services
 {
     /// <summary>
     /// Base class for HID Services.
     /// </summary>
-    public abstract class HIDService : BluetoothService
+    public abstract class HidService : BluetoothService
     {
         private readonly ProtocolMode _protocolMode;
 
@@ -34,10 +34,10 @@ namespace nanoFramework.Bluetooth.HID.Services
         public event HidHostStateChangedEventHandler HidHostStateChanged;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HIDService"/> class.
+        /// Initializes a new instance of the <see cref="HidService"/> class.
         /// </summary>
         /// <param name="protocolMode">The report mode to use for this device.</param>
-        public HIDService(ProtocolMode protocolMode)
+        public HidService(ProtocolMode protocolMode)
         {
             _protocolMode = protocolMode;
         }

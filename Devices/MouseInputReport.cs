@@ -1,7 +1,7 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-namespace nanoFramework.Bluetooth.HID.Devices
+namespace nanoFramework.Bluetooth.Hid.Devices
 {
     /// <summary>
     /// A class representing the state of a <see cref="Mouse"/> device.

@@ -3,8 +3,8 @@
 
 using System.Threading;
 
-using nanoFramework.Bluetooth.HID;
-using nanoFramework.Bluetooth.HID.Devices;
+using nanoFramework.Bluetooth.Hid;
+using nanoFramework.Bluetooth.Hid.Devices;
 
 namespace BLEMouseSample
 {

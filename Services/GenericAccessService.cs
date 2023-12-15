@@ -3,16 +3,16 @@
 
 using System;
 
-using nanoFramework.Bluetooth.HID.Extensions;
+using nanoFramework.Bluetooth.Hid.Extensions;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
-namespace nanoFramework.Bluetooth.HID.Services
+namespace nanoFramework.Bluetooth.Hid.Services
 {
     /// <summary>
     /// The Bluetooth LE Generic Access Service.
     /// </summary>
-    public sealed class GenericAccessService : BluetoothService
+    public class GenericAccessService : BluetoothService
     {
         /// <summary>
         /// Gets the device name.

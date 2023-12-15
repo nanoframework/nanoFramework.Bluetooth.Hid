@@ -4,7 +4,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("nanoFramework.Bluetooth.HID")]
+[assembly: AssemblyTitle("nanoFramework.Bluetooth.Hid")]
 [assembly: AssemblyCompany("nanoFramework Contributors")]
 [assembly: AssemblyCopyright("Copyright(c).NET Foundation and Contributors")]
 

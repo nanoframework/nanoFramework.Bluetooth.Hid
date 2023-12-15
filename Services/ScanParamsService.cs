@@ -3,18 +3,18 @@
 
 using System;
 
-using nanoFramework.Bluetooth.HID.Extensions;
+using nanoFramework.Bluetooth.Hid.Extensions;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
-namespace nanoFramework.Bluetooth.HID.Services
+namespace nanoFramework.Bluetooth.Hid.Services
 {
     /// <summary>
     /// The Bluetooth LE scan parameters service.
     /// </summary>
-    public sealed class ScanParamsService : BluetoothService
+    public class ScanParamsService : BluetoothService
     {
-        private GattLocalCharacteristic scanRefreshCharacteristic;
+        private GattLocalCharacteristic _scanRefreshCharacteristic;
 
         /// <summary>
         /// Gets the scan interval value.
@@ -41,12 +41,12 @@ namespace nanoFramework.Bluetooth.HID.Services
         /// <exception cref="InvalidOperationException"><see cref="Initialize"/> must be called first.</exception>
         public void RequestRefresh()
         {
-            if (scanRefreshCharacteristic == null)
+            if (_scanRefreshCharacteristic == null)
             {
                 throw new InvalidOperationException();
             }
 
-            scanRefreshCharacteristic.NotifyValue((new byte[1] { 0x00 }).AsBuffer());
+            _scanRefreshCharacteristic.NotifyValue((new byte[1] { 0x00 }).AsBuffer());
         }
 
         private void CreateScanIntervalWindowCharacteristic(GattLocalService gattService)
@@ -98,7 +98,7 @@ namespace nanoFramework.Bluetooth.HID.Services
                 throw new Exception(result.Error.ToString());
             }
 
-            scanRefreshCharacteristic = result.Characteristic;
+            _scanRefreshCharacteristic = result.Characteristic;
         }
     }
 }

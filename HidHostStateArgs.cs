@@ -3,12 +3,12 @@
 
 using System;
 
-namespace nanoFramework.Bluetooth.HID
+namespace nanoFramework.Bluetooth.Hid
 {
     /// <summary>
     /// HID Host State Event Args.
     /// </summary>
-    public sealed class HidHostStateArgs : EventArgs
+    public class HidHostStateArgs : EventArgs
     {
         /// <summary>
         /// Gets a value indicating whether the HID host has been suspended.

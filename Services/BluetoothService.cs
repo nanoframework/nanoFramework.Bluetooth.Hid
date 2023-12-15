@@ -6,7 +6,7 @@ using System;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
-namespace nanoFramework.Bluetooth.HID.Services
+namespace nanoFramework.Bluetooth.Hid.Services
 {
     /// <summary>
     /// Base class for a Bluetooth Service.

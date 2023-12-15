@@ -3,11 +3,11 @@
 
 using System;
 
-using nanoFramework.Bluetooth.HID.Extensions;
+using nanoFramework.Bluetooth.Hid.Extensions;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
-namespace nanoFramework.Bluetooth.HID.Devices
+namespace nanoFramework.Bluetooth.Hid.Devices
 {
     /// <summary>
     /// A generic Bluetooth Low-Energy Mouse Implementation.

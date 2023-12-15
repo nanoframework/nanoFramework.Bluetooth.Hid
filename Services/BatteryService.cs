@@ -3,39 +3,39 @@
 
 using System;
 
-using nanoFramework.Bluetooth.HID.Extensions;
+using nanoFramework.Bluetooth.Hid.Extensions;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
 using UnitsNet;
 
-namespace nanoFramework.Bluetooth.HID.Services
+namespace nanoFramework.Bluetooth.Hid.Services
 {
     /// <summary>
     /// The Bluetooth LE battery service.
     /// </summary>
-    public sealed class BatteryService : BluetoothService
+    public class BatteryService : BluetoothService
     {
-        private GattLocalCharacteristic batteryLevelCharacteristic;
+        private GattLocalCharacteristic _batteryLevelCharacteristic;
 
-        private bool disableSerivce;
-        private Ratio batteryLevel;
+        private bool _disableSerivce;
+        private Ratio _batteryLevel;
 
         /// <summary>
         /// Gets or sets the battery level to report to the HID Host.
         /// </summary>
         public Ratio BatteryLevel
         {
-            get => batteryLevel;
+            get => _batteryLevel;
             set
             {
-                if (disableSerivce || batteryLevel.Value != value.Value)
+                if (_disableSerivce || _batteryLevel.Value != value.Value)
                 {
                     var byteVal = (byte)value.Percent;
-                    batteryLevelCharacteristic.NotifyValue(byteVal.AsBuffer());
+                    _batteryLevelCharacteristic.NotifyValue(byteVal.AsBuffer());
 
-                    batteryLevel = value;
-                    disableSerivce = false;
+                    _batteryLevel = value;
+                    _disableSerivce = false;
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace nanoFramework.Bluetooth.HID.Services
         /// </summary>
         public BatteryService()
         {
-            batteryLevel = new Ratio(100, UnitsNet.Units.RatioUnit.Percent);
+            _batteryLevel = new Ratio(100, UnitsNet.Units.RatioUnit.Percent);
         }
 
         /// <inheritdoc/>
@@ -59,13 +59,13 @@ namespace nanoFramework.Bluetooth.HID.Services
         /// Enable reporting battery levels to the HID Host.
         /// </summary>
         public void Enable()
-            => disableSerivce = false;
+            => _disableSerivce = false;
 
         /// <summary>
         /// Disable reporting battery levels to the HID Host.
         /// </summary>
         public void Disable()
-            => disableSerivce = true;
+            => _disableSerivce = true;
 
         private void CreateBatteryLevelCharacteristic(GattLocalService gattService)
         {
@@ -82,8 +82,8 @@ namespace nanoFramework.Bluetooth.HID.Services
                 throw new Exception(characteristicResult.Error.ToString());
             }
 
-            batteryLevelCharacteristic = characteristicResult.Characteristic;
-            batteryLevelCharacteristic.ReadRequested += OnBatteryLevelReadRequest;
+            _batteryLevelCharacteristic = characteristicResult.Characteristic;
+            _batteryLevelCharacteristic.ReadRequested += OnBatteryLevelReadRequest;
         }
 
         private void OnBatteryLevelReadRequest(
@@ -91,13 +91,13 @@ namespace nanoFramework.Bluetooth.HID.Services
             GattReadRequestedEventArgs readRequestEventArgs)
         {
             var request = readRequestEventArgs.GetRequest();
-            if (disableSerivce)
+            if (_disableSerivce)
             {
                 request.RespondWithProtocolError((byte)BluetoothError.DisabledByPolicy);
             }
             else
             {
-                request.RespondWithValue(((byte)batteryLevel.Percent).AsBuffer());
+                request.RespondWithValue(((byte)_batteryLevel.Percent).AsBuffer());
             }
         }
     }

@@ -1,7 +1,7 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-namespace nanoFramework.Bluetooth.HID
+namespace nanoFramework.Bluetooth.Hid
 {
     /// <summary>
     /// A class representing the various information about the device to advertise.

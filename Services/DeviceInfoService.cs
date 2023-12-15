@@ -3,16 +3,16 @@
 
 using System;
 
-using nanoFramework.Bluetooth.HID.Extensions;
+using nanoFramework.Bluetooth.Hid.Extensions;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
-namespace nanoFramework.Bluetooth.HID.Services
+namespace nanoFramework.Bluetooth.Hid.Services
 {
     /// <summary>
     /// The Bluetooth LE Device Information Service.
     /// </summary>
-    public sealed class DeviceInfoService : BluetoothService
+    public class DeviceInfoService : BluetoothService
     {
         /// <summary>
         /// Gets the <see cref="DeviceInformation"/> instance containing
