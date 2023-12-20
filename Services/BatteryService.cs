@@ -1,85 +1,104 @@
-﻿// Copyright (c) .NET Foundation and Contributors
-// See LICENSE file in the project root for full license information.
-//
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+
+using nanoFramework.Bluetooth.Hid.Extensions;
 using nanoFramework.Device.Bluetooth;
 using nanoFramework.Device.Bluetooth.GenericAttributeProfile;
 
-namespace nanoFramework.Device.Bluetooth.Services
+using UnitsNet;
+
+namespace nanoFramework.Bluetooth.Hid.Services
 {
-    public class BatteryService
+    /// <summary>
+    /// The Bluetooth LE battery service.
+    /// </summary>
+    public class BatteryService : BluetoothService
     {
-        private readonly GattLocalService _batteryService;
-        private readonly GattLocalCharacteristic _batteryLevelCharacteristic;
-        private byte _batteryLevel;
+        private GattLocalCharacteristic _batteryLevelCharacteristic;
 
-        public BatteryService(GattServiceProvider provider)
-        {
-            // Add new Battery service to provider
-            _batteryService = provider.AddService(GattServiceUuids.Battery);
-
-
-            GattLocalCharacteristicResult result =
-                _batteryService.CreateCharacteristic(GattCharacteristicUuids.BatteryLevel, new GattLocalCharacteristicParameters()
-                {
-                    UserDescription = "Battery level %",
-                    CharacteristicProperties = GattCharacteristicProperties.Read | GattCharacteristicProperties.Notify
-                });
-
-            _batteryLevelCharacteristic = result.Characteristic;
-            _batteryLevelCharacteristic.ReadRequested += BatteryLevelCharacteristic_ReadRequested;
-
-            // Set default values
-            BatteryLevel = 100;
-            DeviceInError = false;
-        }
+        private bool _disableSerivce;
+        private Ratio _batteryLevel;
 
         /// <summary>
-        /// Get or Set current battery level.
+        /// Gets or sets the battery level to report to the HID Host.
         /// </summary>
-        public byte BatteryLevel
+        public Ratio BatteryLevel
         {
             get => _batteryLevel;
             set
             {
-                if (_batteryLevel != value)
+                if (_disableSerivce || _batteryLevel.Value != value.Value)
                 {
-                    _batteryLevelCharacteristic.NotifyValue(GetBatteryLevel());
+                    var byteVal = (byte)value.Percent;
+                    _batteryLevelCharacteristic.NotifyValue(byteVal.AsBuffer());
+
+                    _batteryLevel = value;
+                    _disableSerivce = false;
                 }
-                _batteryLevel = value;
             }
         }
 
         /// <summary>
-        /// Set if Battery not connected or error reading battery level.
+        /// Initializes a new instance of the <see cref="BatteryService"/> class.
         /// </summary>
-        public bool DeviceInError { get; set; }
+        public BatteryService()
+        {
+            _batteryLevel = new Ratio(100, UnitsNet.Units.RatioUnit.Percent);
+        }
+
+        /// <inheritdoc/>
+        public override void Initialize()
+        {
+            var gattService = CreateOrGetGattService(GattServiceUuids.Battery);
+            CreateBatteryLevelCharacteristic(gattService);
+        }
 
         /// <summary>
-        /// Read event handler.
+        /// Enable reporting battery levels to the HID Host.
         /// </summary>
-        /// <param name="sender">GattLocalCharacteristic sender</param>
-        /// <param name="ReadRequestEventArgs">Request args</param>
-        private void BatteryLevelCharacteristic_ReadRequested(GattLocalCharacteristic sender, GattReadRequestedEventArgs ReadRequestEventArgs)
-        {
-            GattReadRequest request = ReadRequestEventArgs.GetRequest();
+        public void Enable()
+            => _disableSerivce = false;
 
-            if (DeviceInError)
+        /// <summary>
+        /// Disable reporting battery levels to the HID Host.
+        /// </summary>
+        public void Disable()
+            => _disableSerivce = true;
+
+        private void CreateBatteryLevelCharacteristic(GattLocalService gattService)
+        {
+            var characteristicResult = gattService.CreateCharacteristic(
+                GattCharacteristicUuids.BatteryLevel,
+                new GattLocalCharacteristicParameters()
+                {
+                    UserDescription = "Battery Level %",
+                    CharacteristicProperties = GattCharacteristicProperties.Read | GattCharacteristicProperties.Notify
+                });
+
+            if (characteristicResult.Error != BluetoothError.Success)
             {
-                request.RespondWithProtocolError((byte)BluetoothError.DeviceNotConnected);
+                throw new Exception(characteristicResult.Error.ToString());
+            }
+
+            _batteryLevelCharacteristic = characteristicResult.Characteristic;
+            _batteryLevelCharacteristic.ReadRequested += OnBatteryLevelReadRequest;
+        }
+
+        private void OnBatteryLevelReadRequest(
+            GattLocalCharacteristic sender,
+            GattReadRequestedEventArgs readRequestEventArgs)
+        {
+            var request = readRequestEventArgs.GetRequest();
+            if (_disableSerivce)
+            {
+                request.RespondWithProtocolError((byte)BluetoothError.DisabledByPolicy);
             }
             else
             {
-                request.RespondWithValue(GetBatteryLevel());
+                request.RespondWithValue(((byte)_batteryLevel.Percent).AsBuffer());
             }
-        }
-
-        private Buffer GetBatteryLevel()
-        {
-            DataWriter writer = new DataWriter();
-            writer.WriteByte(BatteryLevel);
-            return writer.DetachBuffer();
         }
     }
 }

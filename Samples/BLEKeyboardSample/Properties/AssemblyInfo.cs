@@ -4,8 +4,8 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("nanoFramework.Bluetooth.Hid")]
-[assembly: AssemblyCompany("nanoFramework Contributors")]
+[assembly: AssemblyTitle("BLE Keyboard Sample App")]
+[assembly: AssemblyProduct("BLE Keyboard Sample App")]
 [assembly: AssemblyCopyright("Copyright(c).NET Foundation and Contributors")]
 
 [assembly: ComVisible(false)]

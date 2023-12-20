@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "Bluetooth", "Bluetooth.nfproj", "{18CFC033-C099-4F36-BC4A-2F1033A08000}"
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "Bluetooth.HID", "Bluetooth.HID.nfproj", "{18CFC033-C099-4F36-BC4A-2F1033A08000}"
 EndProject
-Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "TestApp", "TestApp\TestApp.nfproj", "{76F4B8CB-F8DB-4002-B9F2-001A16D27D22}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{74DE404D-D980-4332-9A95-5844E100C1B5}"
+EndProject
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "BLEKeyboardSample", "Samples\BLEKeyboardSample\BLEKeyboardSample.nfproj", "{042895E8-1542-491D-B757-54B256DA479D}"
+EndProject
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "BLEMouseSample", "Samples\BLEMouseSample\BLEMouseSample.nfproj", "{E1D8A5BA-C20A-4E26-A8A8-6BE359C9F809}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,15 +23,25 @@ Global
 		{18CFC033-C099-4F36-BC4A-2F1033A08000}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18CFC033-C099-4F36-BC4A-2F1033A08000}.Release|Any CPU.Build.0 = Release|Any CPU
 		{18CFC033-C099-4F36-BC4A-2F1033A08000}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{76F4B8CB-F8DB-4002-B9F2-001A16D27D22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76F4B8CB-F8DB-4002-B9F2-001A16D27D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76F4B8CB-F8DB-4002-B9F2-001A16D27D22}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{76F4B8CB-F8DB-4002-B9F2-001A16D27D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76F4B8CB-F8DB-4002-B9F2-001A16D27D22}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76F4B8CB-F8DB-4002-B9F2-001A16D27D22}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{042895E8-1542-491D-B757-54B256DA479D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{042895E8-1542-491D-B757-54B256DA479D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{042895E8-1542-491D-B757-54B256DA479D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{042895E8-1542-491D-B757-54B256DA479D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{042895E8-1542-491D-B757-54B256DA479D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{042895E8-1542-491D-B757-54B256DA479D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E1D8A5BA-C20A-4E26-A8A8-6BE359C9F809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D8A5BA-C20A-4E26-A8A8-6BE359C9F809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D8A5BA-C20A-4E26-A8A8-6BE359C9F809}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E1D8A5BA-C20A-4E26-A8A8-6BE359C9F809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D8A5BA-C20A-4E26-A8A8-6BE359C9F809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D8A5BA-C20A-4E26-A8A8-6BE359C9F809}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{042895E8-1542-491D-B757-54B256DA479D} = {74DE404D-D980-4332-9A95-5844E100C1B5}
+		{E1D8A5BA-C20A-4E26-A8A8-6BE359C9F809} = {74DE404D-D980-4332-9A95-5844E100C1B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F082DA79-626D-4065-8878-8EB6D921A678}
