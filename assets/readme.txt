@@ -6,7 +6,7 @@
                                                                                
 ===================================================================================
 
-API docs: https://docs.nanoframework.net/api/nanoFramework.Azure.Devices.Client
+API docs: https://docs.nanoframework.net/api/nanoFramework.Bluetooth.Hid
 
 Browse our samples repository: https://github.com/nanoframework/samples
 
