@@ -11,13 +11,13 @@
     </releaseNotes>
     <readme>docs\README.md</readme>
     <developmentDependency>false</developmentDependency>
-    <projectUrl>https://github.com/nanoframework/nanoFramework.Azure.Devices</projectUrl>
+    <projectUrl>https://github.com/nanoframework/nanoFramework.Bluetooth.Hid</projectUrl>
     <icon>images\nf-logo.png</icon>
-    <repository type="git" url="https://github.com/nanoframework/nanoFramework.Azure.Devices" commit="$commit$" />
+    <repository type="git" url="https://github.com/nanoframework/nanoFramework.Bluetooth.Hid" commit="$commit$" />
     <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
     <description>This package includes the .NET nanoFramework.Bluetooth.Hid assembly for .NET nanoFramework C# projects.
-This is an SDK for Azure IoT Hub using MQTT broker.</description>
-    <tags>nanoFramework C# csharp netmf netnf Microsoft.Azure.Devices nanoFramework.Azure.Devices</tags>
+This allows to have a device seen as an HID device over Bluetooth.</description>
+    <tags>nanoFramework C# csharp netmf netnf Microsoft.Bluetooth.Hid nanoFramework.Bluetooth.Hid</tags>
     <dependencies>
       <dependency id="nanoFramework.CoreLibrary" version="1.15.5" />
       <dependency id="nanoFramework.Device.Bluetooth" version="1.1.60" />
