@@ -22,7 +22,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\nanoFramework.Bluetooth.HID.nfproj" />
+    <ProjectReference Include="..\..\nanoFramework.Bluetooth.HID_nanoFramework.Bluetooth.HID.nfproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib">
@@ -49,6 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.lock.json" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
   <ProjectExtensions>
