@@ -23,7 +23,7 @@ This allows to have a device seen as an HID device over Bluetooth.</description>
       <dependency id="nanoFramework.Device.Bluetooth" version="1.1.60" />
       <dependency id="nanoFramework.Runtime.Events" version="1.11.15" />
       <dependency id="nanoFramework.System.Collections" version="1.5.31" />
-      <dependency id="UnitsNet.nanoFramework.Ratio" version="5.36.0" />
+      <dependency id="UnitsNet.nanoFramework.Ratio" version="5.39.0" />
     </dependencies>
   </metadata>
   <files>
