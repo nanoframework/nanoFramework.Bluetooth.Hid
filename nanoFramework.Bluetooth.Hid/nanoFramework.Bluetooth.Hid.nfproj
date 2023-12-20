@@ -17,7 +17,8 @@
     <AssemblyName>nanoFramework.Bluetooth.Hid</AssemblyName>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
-    <DocumentationFile>bin\$(Configuration)\nanoFramework.Bluetooth.Hid.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\nanoFramework.Bluetooth.HID.xml</DocumentationFile>
+    <NF_IsCoreLibrary>True</NF_IsCoreLibrary>
     <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <RestoreLockedMode Condition="'$(TF_BUILD)' == 'True' or '$(ContinuousIntegrationBuild)' == 'True'">true</RestoreLockedMode>
