@@ -16,7 +16,6 @@
     <RootNamespace>nanoFramework.Bluetooth.Hid</RootNamespace>
     <AssemblyName>nanoFramework.Bluetooth.Hid</AssemblyName>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
-    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <NF_IsCoreLibrary>True</NF_IsCoreLibrary>
     <DocumentationFile>bin\$(Configuration)\nanoFramework.Bluetooth.Hid.xml</DocumentationFile>
     <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
