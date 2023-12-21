@@ -1,8 +1,16 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=nanoframework_lib-nanoFramework.BluetoothHID&metric=alert_status)](https://sonarcloud.io/dashboard?id=nanoframework_lib-nanoFramework.BluetoothHID) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=nanoframework_lib-nanoFramework.BluetoothHID&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=nanoframework_lib-nanoFramework.Bluetooth.Hid) [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![NuGet](https://img.shields.io/nuget/dt/nanoFramework.Bluetooth.Hid.svg?label=NuGet&style=flat&logo=nuge)](https://www.nuget.org/packages/nanoFramework.Bluetooth.Hid/) [![#yourfirstpr](https://img.shields.io/badge/first--timers--only-friendly-blue.svg)](https://github.com/nanoframework/Home/blob/main/CONTRIBUTING.md) [![Discord](https://img.shields.io/discord/478725473862549535.svg?logo=discord&logoColor=white&label=Discord&color=7289DA)](https://discord.gg/gCyBu8T)
+
 ![nanoFramework logo](https://raw.githubusercontent.com/nanoframework/Home/main/resources/logo/nanoFramework-repo-logo.png)
 
 # nanoFramework Bluetooth HID
 
 This library contains an implementation of Bluetooth Low Energy HID Keyboard and Mouse (more in the future).
+
+## Build status
+
+| Component | Build Status | NuGet Package |
+|:-|---|---|
+| nanoFramework.Bluetooth.Hid | [![Build Status](https://dev.azure.com/nanoframework/nanoFramework.Bluetooth.Hid/_apis/build/status%2Fnanoframework.nanoFramework.Bluetooth.Hid?repoName=nanoframework%2FnanoFramework.Bluetooth.Hid&branchName=main)](https://dev.azure.com/nanoframework/nanoFramework.Bluetooth.Hid/_build/latest?definitionId=105&repoName=nanoframework%2FnanoFramework.Bluetooth.Hid&branchName=main) |
 
 ## Hardware requirements
 

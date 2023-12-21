@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>nanoFramework.Bluetooth.Hid</id>
+    <version>$version$</version>
+    <title>nanoFramework.Bluetooth.Hid</title>
+    <authors>nanoframework</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <releaseNotes>
+    </releaseNotes>
+    <readme>docs\README.md</readme>
+    <developmentDependency>false</developmentDependency>
+    <projectUrl>https://github.com/nanoframework/nanoFramework.Bluetooth.Hid</projectUrl>
+    <icon>images\nf-logo.png</icon>
+    <repository type="git" url="https://github.com/nanoframework/nanoFramework.Bluetooth.Hid" commit="$commit$" />
+    <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
+    <description>This package includes the .NET nanoFramework.Bluetooth.Hid assembly for .NET nanoFramework C# projects.
+This allows to have a device seen as an HID device over Bluetooth.</description>
+    <tags>nanoFramework C# csharp netmf netnf Microsoft.Bluetooth.Hid nanoFramework.Bluetooth.Hid</tags>
+    <dependencies>
+      <dependency id="nanoFramework.CoreLibrary" version="1.15.5" />
+      <dependency id="nanoFramework.Device.Bluetooth" version="1.1.60" />
+      <dependency id="nanoFramework.Runtime.Events" version="1.11.15" />
+      <dependency id="nanoFramework.System.Collections" version="1.5.31" />
+      <dependency id="UnitsNet.nanoFramework.Ratio" version="5.39.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="nanoFramework.Bluetooth.Hid\bin\Release\nanoFramework.Bluetooth.Hid.dll" target="lib\nanoFramework.Bluetooth.Hid.dll" />
+    <file src="nanoFramework.Bluetooth.Hid\bin\Release\nanoFramework.Bluetooth.Hid.pdb" target="lib\nanoFramework.Bluetooth.Hid.pdb" />
+    <file src="nanoFramework.Bluetooth.Hid\bin\Release\nanoFramework.Bluetooth.Hid.pdbx" target="lib\nanoFramework.Bluetooth.Hid.pdbx" />
+    <file src="nanoFramework.Bluetooth.Hid\bin\Release\nanoFramework.Bluetooth.Hid.pe" target="lib\nanoFramework.Bluetooth.Hid.pe" />
+    <file src="nanoFramework.Bluetooth.Hid\bin\Release\nanoFramework.Bluetooth.Hid.xml" target="lib\nanoFramework.Bluetooth.Hid.xml" />
+    <file src="assets\readme.txt" target="" />
+    <file src="README.md" target="docs\" />
+    <file src="assets\nf-logo.png" target="images" />
+    <file src="LICENSE.md" target="" />
+  </files>
+</package>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.props" Condition="Exists('packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.props')" />
+  <Import Project="..\packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.props" Condition="Exists('..\packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.props')" />
   <PropertyGroup Label="Globals">
     <NanoFrameworkProjectSystemPath>$(MSBuildExtensionsPath)\nanoFramework\v1.0\</NanoFrameworkProjectSystemPath>
   </PropertyGroup>
@@ -16,8 +16,8 @@
     <RootNamespace>nanoFramework.Bluetooth.Hid</RootNamespace>
     <AssemblyName>nanoFramework.Bluetooth.Hid</AssemblyName>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
-    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
-    <DocumentationFile>bin\$(Configuration)\nanoFramework.Bluetooth.HID.xml</DocumentationFile>
+    <NF_IsCoreLibrary>True</NF_IsCoreLibrary>
+    <DocumentationFile>bin\$(Configuration)\nanoFramework.Bluetooth.Hid.xml</DocumentationFile>
     <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <RestoreLockedMode Condition="'$(TF_BUILD)' == 'True' or '$(ContinuousIntegrationBuild)' == 'True'">true</RestoreLockedMode>
@@ -31,6 +31,11 @@
   <PropertyGroup>
     <DelaySign>false</DelaySign>
   </PropertyGroup>
+  <ItemGroup>
+    <NFMDP_PE_ExcludeClassByName Include="ThisAssembly">
+      <InProject>false</InProject>
+    </NFMDP_PE_ExcludeClassByName>
+  </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
     <Compile Include="Devices\HidDevice.cs" />
@@ -60,25 +65,25 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib">
-      <HintPath>packages\nanoFramework.CoreLibrary.1.15.5\lib\mscorlib.dll</HintPath>
+      <HintPath>..\packages\nanoFramework.CoreLibrary.1.15.5\lib\mscorlib.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.Device.Bluetooth">
-      <HintPath>packages\nanoFramework.Device.Bluetooth.1.1.60\lib\nanoFramework.Device.Bluetooth.dll</HintPath>
+      <HintPath>..\packages\nanoFramework.Device.Bluetooth.1.1.60\lib\nanoFramework.Device.Bluetooth.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.Runtime.Events">
-      <HintPath>packages\nanoFramework.Runtime.Events.1.11.15\lib\nanoFramework.Runtime.Events.dll</HintPath>
+      <HintPath>..\packages\nanoFramework.Runtime.Events.1.11.15\lib\nanoFramework.Runtime.Events.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.Runtime.Native">
-      <HintPath>packages\nanoFramework.Runtime.Native.1.6.12\lib\nanoFramework.Runtime.Native.dll</HintPath>
+      <HintPath>..\packages\nanoFramework.Runtime.Native.1.6.12\lib\nanoFramework.Runtime.Native.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.System.Collections">
-      <HintPath>packages\nanoFramework.System.Collections.1.5.31\lib\nanoFramework.System.Collections.dll</HintPath>
+      <HintPath>..\packages\nanoFramework.System.Collections.1.5.31\lib\nanoFramework.System.Collections.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.System.Text">
-      <HintPath>packages\nanoFramework.System.Text.1.2.54\lib\nanoFramework.System.Text.dll</HintPath>
+      <HintPath>..\packages\nanoFramework.System.Text.1.2.54\lib\nanoFramework.System.Text.dll</HintPath>
     </Reference>
     <Reference Include="UnitsNet.Ratio">
-      <HintPath>packages\UnitsNet.nanoFramework.Ratio.5.36.0\lib\UnitsNet.Ratio.dll</HintPath>
+      <HintPath>..\packages\UnitsNet.nanoFramework.Ratio.5.39.0\lib\UnitsNet.Ratio.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -93,14 +98,14 @@
     </ProjectCapabilities>
   </ProjectExtensions>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
-  <Import Project="packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.targets" Condition="Exists('packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.targets')" />
-  <Import Project="packages\StyleCop.MSBuild.6.2.0\build\StyleCop.MSBuild.targets" Condition="Exists('packages\StyleCop.MSBuild.6.2.0\build\StyleCop.MSBuild.targets')" />
+  <Import Project="..\packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.targets" Condition="Exists('..\packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.targets')" />
+  <Import Project="..\packages\StyleCop.MSBuild.6.2.0\build\StyleCop.MSBuild.targets" Condition="Exists('..\packages\StyleCop.MSBuild.6.2.0\build\StyleCop.MSBuild.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.props'))" />
-    <Error Condition="!Exists('packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.targets'))" />
-    <Error Condition="!Exists('packages\StyleCop.MSBuild.6.2.0\build\StyleCop.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\StyleCop.MSBuild.6.2.0\build\StyleCop.MSBuild.targets'))" />
+    <Error Condition="!Exists('..\packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.props'))" />
+    <Error Condition="!Exists('..\packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Nerdbank.GitVersioning.3.6.133\build\Nerdbank.GitVersioning.targets'))" />
+    <Error Condition="!Exists('..\packages\StyleCop.MSBuild.6.2.0\build\StyleCop.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.MSBuild.6.2.0\build\StyleCop.MSBuild.targets'))" />
   </Target>
 </Project>

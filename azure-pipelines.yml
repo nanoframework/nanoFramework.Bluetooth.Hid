@@ -20,10 +20,6 @@ trigger:
       - config/*
       - .github/*
 
-  tags:
-    include: 
-      - v*
-
 # PR always trigger build
 pr:
   autoCancel: true
@@ -52,7 +48,7 @@ steps:
 # all build, update and publish steps
 - template: azure-pipelines-templates/class-lib-build.yml@templates
   parameters:
-    sonarCloudProject: 'nanoframework_lib-nanoFramework.BluetoothHID'
+    sonarCloudProject: 'nanoframework_nanoFramework.Bluetooth.Hid'
 
 # step from template @ nf-tools repo
 # report error
