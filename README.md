@@ -10,7 +10,7 @@ This library contains an implementation of Bluetooth Low Energy HID Keyboard and
 
 | Component | Build Status | NuGet Package |
 |:-|---|---|
-| nanoFramework.Bluetooth.Hid | [![Build Status](https://dev.azure.com/nanoframework/nanoFramework.Bluetooth.Hid/_apis/build/status%2Fnanoframework.nanoFramework.Bluetooth.Hid?branchName=main)](https://dev.azure.com/nanoframework/nanoFramework.Bluetooth.Hid/_build/latest?definitionId=105&branchName=main) |
+| nanoFramework.Bluetooth.Hid | [![Build Status](https://dev.azure.com/nanoframework/nanoFramework.Bluetooth.Hid/_apis/build/status%2Fnanoframework.nanoFramework.Bluetooth.Hid?repoName=nanoframework%2FnanoFramework.Bluetooth.Hid&branchName=main)](https://dev.azure.com/nanoframework/nanoFramework.Bluetooth.Hid/_build/latest?definitionId=105&repoName=nanoframework%2FnanoFramework.Bluetooth.Hid&branchName=main) |
 
 ## Hardware requirements
 
