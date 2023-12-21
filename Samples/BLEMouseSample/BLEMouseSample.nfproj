@@ -22,7 +22,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\nanoFramework.Bluetooth.HID_nanoFramework.Bluetooth.HID.nfproj" />
+    <ProjectReference Include="..\..\nanoFramework.Bluetooth.His\nanoFramework.Bluetooth.Hid.nfproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib">
