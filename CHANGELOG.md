@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.0.14](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/tree/v1.0.14) (2024-01-18)
+
+[Full Changelog](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/compare/v1.0.12...v1.0.14)
+
 ## [v1.0.12](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/tree/v1.0.12) (2024-01-10)
 
 [Full Changelog](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/compare/v1.0.10...v1.0.12)
