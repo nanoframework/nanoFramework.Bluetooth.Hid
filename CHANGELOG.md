@@ -1,8 +1,8 @@
 # Changelog
 
-## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/tree/HEAD)
+## [v1.0.12](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/tree/v1.0.12) (2024-01-10)
 
-[Full Changelog](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/compare/v1.0.10...HEAD)
+[Full Changelog](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/compare/v1.0.10...v1.0.12)
 
 **Documentation and other chores:**
 
