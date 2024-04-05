@@ -2,7 +2,15 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/compare/v1.0.19...HEAD)
+[Full Changelog](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/compare/v1.0.22...HEAD)
+
+**Documentation and other chores:**
+
+- Update 1 NuGet dependencies [\#7](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/pull/7)
+
+## [v1.0.22](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/tree/v1.0.22) (2024-03-13)
+
+[Full Changelog](https://github.com/nanoframework/nanoFramework.Bluetooth.Hid/compare/v1.0.19...v1.0.22)
 
 **Documentation and other chores:**
 
