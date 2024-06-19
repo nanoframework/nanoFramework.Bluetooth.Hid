@@ -10,9 +10,9 @@
       },
       "nanoFramework.Device.Bluetooth": {
         "type": "Direct",
-        "requested": "[1.1.65, 1.1.65]",
-        "resolved": "1.1.65",
-        "contentHash": "n8l0xtwJ6mc2PnElilF1vLRF8GNdwGUCzYfR6hZmUy0i8XJTVKMpTtR9uRBmK3Iu/IJZ7BvS+PA30VP/y4fNQw=="
+        "requested": "[1.1.75, 1.1.75]",
+        "resolved": "1.1.75",
+        "contentHash": "bmVS4ZnqLk+CgPSfeR/bQ2DlRDrMcle3iQzAtihGt0TUz/qHf3kDtP3sOUL2+IHOnDO/t6ky8TrpISVVlNc+Tg=="
       },
       "nanoFramework.Runtime.Events": {
         "type": "Direct",
@@ -52,9 +52,9 @@
       },
       "UnitsNet.nanoFramework.Ratio": {
         "type": "Direct",
-        "requested": "[5.50.0, 5.50.0]",
-        "resolved": "5.50.0",
-        "contentHash": "Nt2W17Ogj8xdk5BbKgei8ykEzz8ZE3LJCLttbrSjgIIMILNBRDN6d8yeAvwXr0K/M/6sqoGedrRy+fKh6Ska3A=="
+        "requested": "[5.52.0, 5.52.0]",
+        "resolved": "5.52.0",
+        "contentHash": "i6jAGwbxppZCkzRuetA5rbSytDH0BY3nw+bDI+0xCS/afvUgytwDMA8LqgYvy9aop6IpC/aszkDEp0vjQl8t5Q=="
       }
     }
   }
