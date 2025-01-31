@@ -10,9 +10,9 @@
       },
       "nanoFramework.Device.Bluetooth": {
         "type": "Direct",
-        "requested": "[1.1.97, 1.1.97]",
-        "resolved": "1.1.97",
-        "contentHash": "zzB7edJ1HYozA64M7Xnl7CR4IBFbSQoAJNkJGwKtkbwzRY9Rx0UCRYA8Ib28OI/4lX8WXx0RbUp9KzPME6O4Mw=="
+        "requested": "[1.1.98, 1.1.98]",
+        "resolved": "1.1.98",
+        "contentHash": "Hlp4dvDdighVuyXJ+QvZUKE73wzC0WyT+e1uKJ4dhf7tIXIHFIFsx0ICAbZu4aDY/9q29wmy+nsOSDc1W1jiEg=="
       },
       "nanoFramework.Runtime.Events": {
         "type": "Direct",
