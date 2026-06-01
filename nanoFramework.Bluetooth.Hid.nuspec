@@ -20,11 +20,11 @@ This allows to have a device seen as an HID device over Bluetooth.</description>
     <tags>nanoFramework C# csharp netmf netnf Microsoft.Bluetooth.Hid nanoFramework.Bluetooth.Hid</tags>
     <dependencies>
       <group targetFramework=".NETnanoFramework1.0">
-        <dependency id="nanoFramework.CoreLibrary" version="2.0.0-preview.35" />
-        <dependency id="nanoFramework.Device.Bluetooth" version="2.0.0-preview.3" />
-        <dependency id="nanoFramework.Runtime.Events" version="2.0.0-preview.8" />
-        <dependency id="nanoFramework.System.Collections" version="2.0.0-preview.8" />
-        <dependency id="nanoFramework.UnitsNet.Ratio" version="5.77.0-preview.5" />
+        <dependency id="nanoFramework.CoreLibrary" version="2.0.0-preview.52" />
+        <dependency id="nanoFramework.Device.Bluetooth" version="2.0.0-preview.17" />
+        <dependency id="nanoFramework.Runtime.Events" version="2.0.0-preview.13" />
+        <dependency id="nanoFramework.System.Collections" version="2.0.0-preview.15" />
+        <dependency id="nanoFramework.UnitsNet.Ratio" version="5.77.0-preview.16" />
       </group>
     </dependencies>
   </metadata>
