@@ -104,7 +104,7 @@
       <HintPath>..\packages\nanoFramework.System.Text.2.0.0-preview.37\lib\netnano1.0\nanoFramework.System.Text.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.UnitsNet.Ratio, Version=5.77.0.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\packages\nanoFramework.UnitsNet.Ratio.5.77.0-preview.16\lib\netnano1.0\nanoFramework.UnitsNet.Ratio.dll</HintPath>
+      <HintPath>..\packages\nanoFramework.UnitsNet.Ratio.5.77.0-preview.20\lib\netnano1.0\nanoFramework.UnitsNet.Ratio.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ProjectExtensions>
