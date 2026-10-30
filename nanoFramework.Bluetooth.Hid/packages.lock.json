@@ -58,9 +58,9 @@
       },
       "nanoFramework.UnitsNet.Ratio": {
         "type": "Direct",
-        "requested": "[5.77.0-preview.16, 5.77.0-preview.16]",
-        "resolved": "5.77.0-preview.16",
-        "contentHash": "YrVOncjGRKVX1bv+uE+b+DmoVAaaJf182Vg65xx+z6ebrjiDxVQ2DDZmMv8TCaMMftA6BMKEO6lP9QFr/wFDCA=="
+        "requested": "[5.77.0-preview.20, 5.77.0-preview.20]",
+        "resolved": "5.77.0-preview.20",
+        "contentHash": "dnSNhuHSeyNnqGchxm9sp/2HQD08lNf5A+rJDI22zt4umi7f9RdkUiEvi2G2x41q6BQJENIIk4NeNaRB+qGheA=="
       },
       "Nerdbank.GitVersioning": {
         "type": "Direct",
